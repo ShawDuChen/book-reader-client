@@ -10,6 +10,8 @@ import {
   RobotOutlined,
 } from "@ant-design/icons";
 import { Menu, MenuProps } from "antd";
+import { useMemo } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function AppMenu() {
   const items: MenuProps["items"] = [
@@ -64,5 +66,31 @@ export default function AppMenu() {
     },
   ];
 
-  return <Menu items={items} theme="dark" mode="inline" />;
+  const navigate = useNavigate();
+
+  const { pathname } = useLocation();
+
+  const defaultOpenKeys = useMemo(() => {
+    return pathname.split("/");
+  }, [pathname]);
+
+  const defaultSelectedKeys = useMemo(() => {
+    return pathname.split("/");
+  }, [pathname]);
+
+  const onMenuItemClick: MenuProps["onClick"] = ({ keyPath }) => {
+    const path = keyPath.reverse().join("/");
+    navigate(`/${path}`);
+  };
+
+  return (
+    <Menu
+      items={items}
+      theme="dark"
+      mode="inline"
+      defaultOpenKeys={defaultOpenKeys}
+      defaultSelectedKeys={defaultSelectedKeys}
+      onClick={onMenuItemClick}
+    />
+  );
 }

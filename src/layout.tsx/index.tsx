@@ -1,6 +1,8 @@
 import { Layout, theme } from "antd";
 import { AppHeader, AppLogo, AppMenu } from "./components";
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { Outlet } from "react-router-dom";
+import { LoadingOutlined } from "@ant-design/icons";
 
 export default function AppLayout() {
   const {
@@ -28,7 +30,9 @@ export default function AppLayout() {
         </Layout.Header>
         <Layout.Content
           style={{ margin: 16, padding: 16, background: colorBgContainer }}>
-          123
+          <Suspense fallback={<LoadingOutlined />}>
+            <Outlet />
+          </Suspense>
         </Layout.Content>
         <Layout.Footer></Layout.Footer>
       </Layout>
