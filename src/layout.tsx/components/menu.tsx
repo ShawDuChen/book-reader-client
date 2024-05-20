@@ -1,70 +1,25 @@
-import {
-  SettingOutlined,
-  HomeOutlined,
-  BranchesOutlined,
-  UsergroupDeleteOutlined,
-  BookOutlined,
-  DatabaseOutlined,
-  UserAddOutlined,
-  UserSwitchOutlined,
-  RobotOutlined,
-} from "@ant-design/icons";
 import { Menu, MenuProps } from "antd";
 import { useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import routes from "@/router";
+import { AppRouteObject } from "app";
+import { ItemType } from "antd/es/menu/interface";
+
+function getMenuItem(route: AppRouteObject): ItemType {
+  const { path, meta, children } = route;
+  return {
+    key: `${path}`,
+    label: meta?.title || path,
+    icon: meta?.icon,
+    children:
+      children && children.length
+        ? children.map((child) => getMenuItem(child))
+        : undefined,
+  };
+}
 
 export default function AppMenu() {
-  const items: MenuProps["items"] = [
-    {
-      key: "business",
-      label: "Business",
-      icon: <HomeOutlined />,
-      children: [
-        {
-          key: "category",
-          label: "Category",
-          icon: <BranchesOutlined />,
-        },
-        {
-          key: "author",
-          label: "Author",
-          icon: <UsergroupDeleteOutlined />,
-        },
-        {
-          key: "book",
-          label: "Book",
-          icon: <BookOutlined />,
-        },
-        {
-          key: "chapter",
-          label: "Chapter",
-          icon: <DatabaseOutlined />,
-        },
-      ],
-    },
-    {
-      key: "system",
-      label: "System Settings",
-      icon: <SettingOutlined />,
-      children: [
-        {
-          key: "user",
-          label: "User",
-          icon: <UserAddOutlined />,
-        },
-        {
-          key: "role",
-          label: "Role",
-          icon: <UserSwitchOutlined />,
-        },
-        {
-          key: "log",
-          label: "Log",
-          icon: <RobotOutlined />,
-        },
-      ],
-    },
-  ];
+  const items: MenuProps["items"] = routes.map((route) => getMenuItem(route));
 
   const navigate = useNavigate();
 

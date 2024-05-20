@@ -6,8 +6,7 @@ import {
 } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { getToken } from "./utils/token.ts";
-import businessRoute from "./router/business.tsx";
-import systemRoute from "./router/system.tsx";
+import routes from "./router/index.ts";
 
 const LoginPage = lazy(() => import("@/pages/login.tsx"));
 
@@ -28,7 +27,7 @@ function App() {
           <AppLayout />
         </AuthRoute>
       ),
-      children: [businessRoute, systemRoute],
+      children: [...routes],
     },
     {
       path: "/login",

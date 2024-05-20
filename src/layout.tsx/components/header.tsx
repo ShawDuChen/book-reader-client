@@ -1,3 +1,4 @@
+import { flatRoutes } from "@/router";
 import {
   LockOutlined,
   LogoutOutlined,
@@ -5,7 +6,9 @@ import {
   MenuUnfoldOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Dropdown, MenuProps } from "antd";
+import { Breadcrumb, BreadcrumbProps, Dropdown, MenuProps } from "antd";
+import { useMemo } from "react";
+import { useMatches } from "react-router-dom";
 
 export default function AppHeader(props: {
   collapsed: boolean;
@@ -32,10 +35,28 @@ export default function AppHeader(props: {
     },
   ];
 
+  const macthed = useMatches();
+
+  const breadcrumnItems: BreadcrumbProps["items"] = useMemo(() => {
+    return macthed
+      .filter((item) => item.pathname !== "/")
+      .map(({ pathname }) => {
+        const title = pathname.slice(pathname.lastIndexOf("/") + 1);
+        const find = flatRoutes.find((r) => r.path === title);
+        return {
+          key: pathname,
+          title: find?.meta?.title || title,
+        };
+      });
+  }, [macthed]);
+
   return (
     <div className="flex flex-row w-full justify-between items-center">
-      <div className="text-xl cursor-pointer" onClick={props.toggle}>
-        {props.collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+      <div className="flex items-center space-x-2">
+        <div className="text-xl cursor-pointer" onClick={props.toggle}>
+          {props.collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        </div>
+        <Breadcrumb items={breadcrumnItems} />
       </div>
       <Dropdown menu={{ items }}>
         <div className="cursor-pointer space-x-2">
