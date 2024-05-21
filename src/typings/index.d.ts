@@ -32,12 +32,24 @@ declare module "app" {
     updated_by?: string;
   }
 
-  interface LogItem {
+  interface LogItem extends CommonStruct {
     id: number;
     url: string;
     method: string;
     status: number;
     request_body: string;
     response_body: string;
+  }
+
+  interface User extends CommonStruct {
+    id: number;
+    address: string;
+    email: string;
+    is_super: string;
+    role_id: number;
+    sex: string;
+    status: string | number;
+    tel: string;
+    username: string;
   }
 }

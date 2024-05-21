@@ -42,7 +42,11 @@ export default function LogPage() {
     <Spin spinning={isLoading}>
       <Form layout="inline" className="mb-4 space-x-2" onFinish={onSearch}>
         <Form.Item name="method" label="请求方法">
-          <Select style={{ width: 120 }} placeholder="请选择">
+          <Select
+            style={{ width: 120 }}
+            placeholder="请选择"
+            allowClear
+            showSearch>
             {METHODS.map((m) => (
               <Select.Option key={m} value={m}>
                 {m}
@@ -51,7 +55,11 @@ export default function LogPage() {
           </Select>
         </Form.Item>
         <Form.Item name="status" label="状态码">
-          <Select style={{ width: 120 }} placeholder="请选择">
+          <Select
+            style={{ width: 120 }}
+            placeholder="请选择"
+            allowClear
+            showSearch>
             {STATUS_CODES.map((code) => (
               <Select.Option key={code} value={code}>
                 {code}

@@ -19,10 +19,10 @@ export default function LoginPage() {
   const onFinished: FormProps<LoginFieldType>["onFinish"] = (data) => {
     setLoading(true);
     login(data)
-      .then(({ data }) => {
+      .then((data) => {
         setToken(data.token);
         message.success("登录成功", 2, () => {
-          navigate("/");
+          navigate("/business/category");
         });
       })
       .catch(() => setLoading(false));

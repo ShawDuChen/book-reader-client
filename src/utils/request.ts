@@ -25,7 +25,14 @@ const showMsg = (message: string, cb?: () => void) => {
 
 const handleError = (error: AxiosError) => {
   const { statusText, status } = error.response!;
-  showMsg(`【${status}】${statusText}`);
+  const message = `【${status}】${statusText}`;
+  if (status === 401) {
+    showMsg(message, () => {
+      location.href = "/login";
+    });
+  } else {
+    showMsg(message);
+  }
   return Promise.reject(error);
 };
 
