@@ -1,9 +1,9 @@
 import Axios from "axios";
-import type { AxiosError, AxiosResponse } from "axios";
+import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { getToken } from "./token";
 import { notification } from "antd";
 
-const request = Axios.create({
+const server = Axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_URL,
   timeout: 60 * 1000,
 });
@@ -29,22 +29,32 @@ const handleError = (error: AxiosError) => {
   return Promise.reject(error);
 };
 
-request.interceptors.request.use(
+server.interceptors.request.use(
   (config) => {
     const token = getToken();
     if (token) {
-      config.headers["Authorization"] = token;
+      config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
   },
   (error: AxiosError) => handleError(error),
 );
 
-request.interceptors.response.use(
+server.interceptors.response.use(
   (response: AxiosResponse) => {
     return response;
   },
   (error: AxiosError) => handleError(error),
 );
+
+function request<T = unknown>(config: AxiosRequestConfig) {
+  return new Promise<T>((resolve, reject) => {
+    server(config)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((e) => reject(e));
+  });
+}
 
 export default request;

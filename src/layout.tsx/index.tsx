@@ -29,7 +29,8 @@ export default function AppLayout() {
           />
         </Layout.Header>
         <Layout.Content
-          style={{ margin: 16, padding: 16, background: colorBgContainer }}>
+          style={{ margin: 16, padding: 16, background: colorBgContainer }}
+          className="overflow-auto">
           <Suspense fallback={<LoadingOutlined />}>
             <Outlet />
           </Suspense>

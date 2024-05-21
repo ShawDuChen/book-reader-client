@@ -5,6 +5,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { getToken } from "./utils/token.ts";
 import routes from "./router/index.ts";
 
@@ -17,6 +18,8 @@ const AuthRoute = (props: { children: React.ReactNode }) => {
   }
   return props.children;
 };
+
+const queryClient = new QueryClient();
 
 function App() {
   const router = createRouter([
@@ -35,9 +38,11 @@ function App() {
     },
   ]);
   return (
-    <Suspense fallback={<div>loading...</div>}>
-      <RouterProvider router={router} />
-    </Suspense>
+    <QueryClientProvider client={queryClient}>
+      <Suspense fallback={<div>loading...</div>}>
+        <RouterProvider router={router} />
+      </Suspense>
+    </QueryClientProvider>
   );
 }
 
