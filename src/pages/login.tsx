@@ -1,4 +1,4 @@
-import { login } from "@/api/user";
+import { login } from "@/api/system/user";
 import { setToken } from "@/utils/token";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Card, Form, FormProps, Input, message } from "antd";

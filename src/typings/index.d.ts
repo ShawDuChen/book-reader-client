@@ -58,4 +58,51 @@ declare module "app" {
     name: string;
     authorities: string;
   }
+
+  interface Author extends CommonStruct {
+    id: number;
+    name: string;
+    sex: string;
+    tel: string;
+  }
+
+  interface Book extends CommonStruct {
+    id: number;
+    name: string;
+    category_id: number;
+    author_id: number;
+  }
+
+  interface Category extends CommonStruct {
+    id: number;
+    name: string;
+    identify: string;
+    remark: string;
+  }
+
+  interface Chapter extends CommonStruct {
+    id: number;
+    no: string;
+    title: string;
+    content: string;
+    url: string;
+    book_id: number;
+  }
+
+  interface Dictionary extends CommonStruct {
+    id: number;
+    name: string;
+    identify: string;
+    status: number;
+    remark: string;
+  }
+
+  interface DictionaryData extends CommonStruct {
+    id: number;
+    value: string;
+    label: string;
+    dict_type: number;
+    status: number;
+    remark: string;
+  }
 }

@@ -1,4 +1,4 @@
-import { fetchUserList } from "@/api/user";
+import { fetchUserList } from "@/api/system/user";
 import { SEX_LIST } from "@/utils/constants";
 import { useQuery } from "@tanstack/react-query";
 import {

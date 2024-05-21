@@ -1,4 +1,4 @@
-import { fetchRoleList } from "@/api/role";
+import { fetchRoleList } from "@/api/system/role";
 import { useQuery } from "@tanstack/react-query";
 import { Button, Form, FormProps, Input, Spin, Table, TableProps } from "antd";
 import { PageQuery, Role } from "app";

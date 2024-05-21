@@ -1,4 +1,4 @@
-import { fetchLogs } from "@/api/log";
+import { fetchLogs } from "@/api/system/log";
 import { METHODS, STATUS_CODES } from "@/utils/constants";
 import { useQuery } from "@tanstack/react-query";
 import { Button, Form, FormProps, Select, Spin, Table, TableProps } from "antd";
