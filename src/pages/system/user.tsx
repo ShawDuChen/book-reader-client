@@ -1,11 +1,21 @@
 import { fetchUserList } from "@/api/user";
+import { SEX_LIST } from "@/utils/constants";
 import { useQuery } from "@tanstack/react-query";
-import { Spin, Table, TableProps } from "antd";
+import {
+  Button,
+  Form,
+  FormProps,
+  Input,
+  Select,
+  Spin,
+  Table,
+  TableProps,
+} from "antd";
 import { PageQuery, User } from "app";
 import { useState } from "react";
 
 export default function UserPage() {
-  const [pageQuery] = useState<PageQuery<Partial<User>>>({
+  const [pageQuery, updatePageQuery] = useState<PageQuery<Partial<User>>>({
     page: 1,
     limit: 20,
   });
@@ -29,9 +39,49 @@ export default function UserPage() {
     { key: "updated_by", dataIndex: "updated_by", title: "最后操作人" },
   ];
 
+  const onSearch: FormProps<Partial<User>>["onFinish"] = (data) => {
+    updatePageQuery((prev) => ({
+      ...prev,
+      ...data,
+    }));
+  };
+
   return (
     <Spin spinning={isLoading}>
-      <Table rowKey={"id"} dataSource={data?.lists} columns={columns} />
+      <Form layout="inline" onFinish={onSearch} className=" mb-4 space-x-2">
+        <Form.Item name={"username"} label="用户名">
+          <Input placeholder="请输入" />
+        </Form.Item>
+        <Form.Item name={"email"} label="邮箱">
+          <Input placeholder="请输入" />
+        </Form.Item>
+        <Form.Item name={"sex"} label="性别">
+          <Select placeholder="请选择" allowClear showSearch>
+            {SEX_LIST.map((item) => (
+              <Select.Option value={item.value}>{item.label}</Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Button htmlType="reset">重置</Button>
+        <Button type="primary" htmlType="submit">
+          查询
+        </Button>
+      </Form>
+      <Table
+        rowKey={"id"}
+        dataSource={data?.lists}
+        columns={columns}
+        pagination={{
+          current: pageQuery.page,
+          pageSize: pageQuery.limit,
+          onChange(page, pageSize) {
+            updatePageQuery({
+              page: page,
+              limit: pageSize,
+            });
+          },
+        }}
+      />
     </Spin>
   );
 }

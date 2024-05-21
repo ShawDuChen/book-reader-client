@@ -52,4 +52,10 @@ declare module "app" {
     tel: string;
     username: string;
   }
+
+  interface Role extends CommonStruct {
+    id: number;
+    name: string;
+    authorities: string;
+  }
 }

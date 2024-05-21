@@ -67,7 +67,7 @@ export default function LogPage() {
             ))}
           </Select>
         </Form.Item>
-        <Button>重置</Button>
+        <Button htmlType="reset">重置</Button>
         <Button type="primary" htmlType="submit">
           查询
         </Button>
