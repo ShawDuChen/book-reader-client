@@ -1,5 +1,6 @@
 declare module "app" {
   import type { RouteObject } from "react-router-dom";
+  import { Rule } from "antd/es/form";
   interface LoginFieldType {
     username: string;
     password: string;
@@ -25,6 +26,7 @@ declare module "app" {
   };
 
   interface CommonStruct {
+    id?: number;
     remark?: string;
     created_at?: string;
     created_by?: string;
@@ -111,4 +113,11 @@ declare module "app" {
     password: string;
     confirm_password: string;
   }
+
+  type FormItemCondition<T> = {
+    name: keyof T;
+    label?: string;
+    formItem: React.ReactNode;
+    rules?: Rule[];
+  };
 }

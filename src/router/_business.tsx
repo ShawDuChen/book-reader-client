@@ -10,7 +10,7 @@ import {
   DatabaseOutlined,
 } from "@ant-design/icons";
 const CategoryPage = lazy(() => import("@/pages/business/category.tsx"));
-const AuthorPage = lazy(() => import("@/pages/business/author.tsx"));
+const AuthorPage = lazy(() => import("@/pages/business/author/index"));
 const BookPage = lazy(() => import("@/pages/business/book.tsx"));
 const ChapterPage = lazy(() => import("@/pages/business/chapter.tsx"));
 

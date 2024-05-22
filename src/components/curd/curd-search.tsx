@@ -1,15 +1,10 @@
 import { Button, Form, FormProps } from "antd";
-import { CommonStruct } from "app";
+import { CommonStruct, FormItemCondition } from "app";
 import { Key } from "react";
-export type SearchCondition<T> = {
-  name: keyof T;
-  label?: string;
-  formItem: React.ReactNode;
-};
 
 export type CrudSearchProps<T> = {
   onChange?: (_: T) => void;
-  conditions?: SearchCondition<T>[];
+  conditions?: FormItemCondition<T>[];
 };
 
 function CrudSearch<T extends CommonStruct>(props: CrudSearchProps<T>) {

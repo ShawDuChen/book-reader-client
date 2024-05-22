@@ -1,16 +1,20 @@
-import { Button, Form, FormProps, Spin } from "antd";
+import { Button, Form, FormProps, Modal, Spin, message } from "antd";
 import CrudSearch, { CrudSearchProps } from "./curd-search";
 import CrudTable, { CrudTableProps } from "./curd-table";
-import CrudForm from "./curd-form";
+import CrudForm, { CrudFormProps } from "./curd-form";
 import { CommonStruct, PageQuery, PageResult } from "app";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
 export type CrudProps<T> = {
   queryKey: string;
   listApi: (_: PageQuery<Partial<T>>) => Promise<PageResult<T>>;
+  createApi?: (_: T) => Promise<T>;
+  updateApi?: (_: T) => Promise<T>;
+  deleteApi?: (_: number) => Promise<T>;
   columns: CrudTableProps<T>["columns"];
   searchs?: CrudSearchProps<T>["conditions"];
+  forms?: CrudFormProps<T>["conditions"];
   selectable?: boolean;
 };
 
@@ -22,6 +26,8 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
 
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
+  const queryClient = useQueryClient();
+
   const { data, isLoading } = useQuery({
     queryKey: [props.queryKey, pageQuery],
     queryFn: () => {
@@ -30,10 +36,58 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
     },
   });
 
+  const createMutation = useMutation({
+    mutationFn: (data: T) => props.createApi!(data),
+    onSuccess: () => {
+      message.success("创建成功");
+      queryClient.invalidateQueries({
+        queryKey: [props.queryKey],
+      });
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: (data: T) => props.updateApi!(data),
+    onSuccess: () => {
+      message.success("修改成功");
+      queryClient.invalidateQueries({
+        queryKey: [props.queryKey],
+      });
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: number) => props.deleteApi!(id),
+    onSuccess: () => {
+      message.success("删除成功");
+      queryClient.invalidateQueries({
+        queryKey: [props.queryKey],
+      });
+    },
+  });
+
+  const askDelete = (id?: number) => {
+    console.log(id);
+
+    if (!id) return;
+    Modal.confirm({
+      title: "删除提示",
+      type: "warning",
+      content: "确定删除该数据吗？",
+      onOk: () => {
+        deleteMutation.mutate(id);
+      },
+    });
+  };
+
   const [form] = Form.useForm();
 
   const submitForm: FormProps<T>["onFinish"] = (values) => {
-    console.log("values: ", values);
+    if (!values.id) {
+      createMutation.mutate(values);
+    } else {
+      updateMutation.mutate(values);
+    }
   };
 
   const showFormDialog = (added = true, initialValues?: T) => {
@@ -42,6 +96,7 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
       added,
       onSubmit: submitForm,
       initialValues,
+      conditions: props.forms,
     });
   };
 
@@ -64,7 +119,26 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
       <CrudTable
         dataSource={data?.lists}
         rowKey={"id"}
-        columns={props.columns}
+        columns={[
+          ...(props.columns || []),
+          {
+            key: "crud-action",
+            dataIndex: "crud-action",
+            title: "操作",
+            render: (_, record) => (
+              <div className="space-x-2">
+                <Button type="link" danger onClick={() => askDelete(record.id)}>
+                  删除
+                </Button>
+                <Button
+                  type="link"
+                  onClick={() => showFormDialog(false, record)}>
+                  编辑
+                </Button>
+              </div>
+            ),
+          },
+        ]}
         pagination={{
           current: pageQuery.page,
           pageSize: pageQuery.limit,
