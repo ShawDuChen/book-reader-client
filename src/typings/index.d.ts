@@ -5,14 +5,14 @@ declare module "app" {
     password: string;
   }
 
-  type AppRouteObject = RouteObject & {
+  type AppRouteObject = {
     meta?: {
       title?: string;
       icon?: React.ReactDOM | React.JSX;
       hidden?: boolean;
     };
     children?: AppRouteObject[];
-  };
+  } & RouteObject;
 
   type PageQuery<T = unknown> = {
     page: number;
@@ -51,6 +51,7 @@ declare module "app" {
     status: string | number;
     tel: string;
     username: string;
+    nickname: string;
   }
 
   interface Role extends CommonStruct {
@@ -104,5 +105,10 @@ declare module "app" {
     dict_type: number;
     status: number;
     remark: string;
+  }
+
+  interface UserUpdatePassword {
+    password: string;
+    confirm_password: string;
   }
 }

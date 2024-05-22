@@ -1,13 +1,13 @@
-import AppLayout from "./layout.tsx";
+import AppLayout from "@/layout";
 import {
   createBrowserRouter as createRouter,
   RouterProvider,
   Navigate,
 } from "react-router-dom";
 import { lazy, Suspense } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { getToken } from "./utils/token.ts";
-import routes from "./router/index.ts";
+import { getToken } from "@/utils/token.ts";
+import routes from "@/router/index.ts";
+import { Spin } from "antd";
 
 const LoginPage = lazy(() => import("@/pages/login.tsx"));
 
@@ -19,9 +19,7 @@ const AuthRoute = (props: { children: React.ReactNode }) => {
   return props.children;
 };
 
-const queryClient = new QueryClient();
-
-function App() {
+function AppRouter() {
   const router = createRouter([
     {
       path: "/",
@@ -38,12 +36,10 @@ function App() {
     },
   ]);
   return (
-    <QueryClientProvider client={queryClient}>
-      <Suspense fallback={<div>loading...</div>}>
-        <RouterProvider router={router} />
-      </Suspense>
-    </QueryClientProvider>
+    <Suspense fallback={<Spin />}>
+      <RouterProvider router={router} />
+    </Suspense>
   );
 }
 
-export default App;
+export default AppRouter;

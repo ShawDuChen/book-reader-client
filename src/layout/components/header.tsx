@@ -1,4 +1,6 @@
 import { flatRoutes } from "@/router";
+import { useStore } from "@/store";
+import { removeToken } from "@/utils/token";
 import {
   LockOutlined,
   LogoutOutlined,
@@ -6,23 +8,25 @@ import {
   MenuUnfoldOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Breadcrumb, BreadcrumbProps, Dropdown, MenuProps } from "antd";
+import { Breadcrumb, BreadcrumbProps, Dropdown, MenuProps, Modal } from "antd";
 import { useMemo } from "react";
-import { useMatches } from "react-router-dom";
+import { useMatches, useNavigate } from "react-router-dom";
 
 export default function AppHeader(props: {
   collapsed: boolean;
   toggle: () => void;
 }) {
+  const { user } = useStore();
+
   const items: MenuProps["items"] = [
     {
       key: "profile",
-      label: "User Profile",
+      label: "个人中心",
       icon: <UserOutlined />,
     },
     {
       key: "change_password",
-      label: "Change Password",
+      label: "修改密码",
       icon: <LockOutlined />,
     },
     {
@@ -30,7 +34,7 @@ export default function AppHeader(props: {
     },
     {
       key: "logout",
-      label: "Logout",
+      label: "注销",
       icon: <LogoutOutlined />,
     },
   ];
@@ -50,6 +54,35 @@ export default function AppHeader(props: {
       });
   }, [macthed]);
 
+  const askLogout = () => {
+    Modal.confirm({
+      title: "提示",
+      content: "是否退出登录？",
+      onOk() {
+        removeToken();
+        navigate("/login");
+      },
+    });
+  };
+
+  const navigate = useNavigate();
+
+  const onClick: MenuProps["onClick"] = (info) => {
+    switch (info.key) {
+      case "profile":
+        navigate("/workspace/profile");
+        break;
+      case "change_password":
+        navigate("/workspace/profile?type=change_password");
+        break;
+      case "logout":
+        askLogout();
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="flex flex-row w-full justify-between items-center px-8">
       <div className="flex items-center space-x-2">
@@ -58,10 +91,10 @@ export default function AppHeader(props: {
         </div>
         <Breadcrumb items={breadcrumnItems} style={{ color: "white" }} />
       </div>
-      <Dropdown menu={{ items }}>
+      <Dropdown menu={{ items, onClick }}>
         <div className="cursor-pointer space-x-2">
           <UserOutlined />
-          <span>Admin</span>
+          <span>{user.nickname}</span>
         </div>
       </Dropdown>
     </div>

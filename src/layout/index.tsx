@@ -1,30 +1,39 @@
 import { Layout, theme } from "antd";
 import { AppHeader, AppLogo, AppMenu } from "./components";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import { LoadingOutlined } from "@ant-design/icons";
+import { useStore } from "@/store";
+import { useQuery } from "@tanstack/react-query";
+import { getUserInfo } from "@/api/system/user";
 
 export default function AppLayout() {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  const [collapsed, setCollapsed] = useState(false);
+  const { siderCollapsed, toggleSider, setUser } = useStore();
+
+  const { isLoading } = useQuery({
+    queryKey: ["userInfo"],
+    queryFn: async () => {
+      const user = await getUserInfo();
+      setUser(user);
+      return user;
+    },
+  });
   return (
     <Layout className=" h-screen">
       <Layout.Header
         style={{ padding: "0", color: colorBgContainer }}
         className="flex items-center">
-        <AppLogo collapsed={collapsed} />
-        <AppHeader
-          collapsed={collapsed}
-          toggle={() => setCollapsed(!collapsed)}
-        />
+        <AppLogo collapsed={siderCollapsed} />
+        <AppHeader collapsed={siderCollapsed} toggle={toggleSider} />
       </Layout.Header>
       <Layout>
         <Layout.Sider
           collapsible
-          collapsed={collapsed}
-          onCollapse={setCollapsed}
+          collapsed={siderCollapsed}
+          onCollapse={toggleSider}
           className="overflow-auto">
           <AppMenu />
         </Layout.Sider>
@@ -33,9 +42,15 @@ export default function AppLayout() {
           <Layout.Content
             style={{ background: colorBgContainer }}
             className="m-4 p-4 mb-0 overflow-auto">
-            <Suspense fallback={<LoadingOutlined />}>
-              <Outlet />
-            </Suspense>
+            {isLoading ? (
+              <div className=" h-100 w-100 flex items-center justify-center">
+                <LoadingOutlined style={{ fontSize: 50 }} />
+              </div>
+            ) : (
+              <Suspense fallback={<LoadingOutlined />}>
+                <Outlet />
+              </Suspense>
+            )}
           </Layout.Content>
           <Layout.Footer className="px-0 py-2 text-center">
             &copy; {` `} copyright;

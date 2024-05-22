@@ -1,5 +1,11 @@
 import request from "@/utils/request";
-import { LoginFieldType, PageQuery, PageResult, User } from "app";
+import {
+  LoginFieldType,
+  PageQuery,
+  PageResult,
+  User,
+  UserUpdatePassword,
+} from "app";
 
 export const login = (data: LoginFieldType) => {
   return request<{ token: string }>({
@@ -34,7 +40,7 @@ export const createUser = (data: User) => {
 
 export const updateUser = (data: User) => {
   return request({
-    url: "/user",
+    url: `/user/${data.id}`,
     method: "put",
     data,
   });
@@ -44,5 +50,20 @@ export const deleteUser = (id: number) => {
   return request({
     url: `/user/${id}`,
     method: "delete",
+  });
+};
+
+export const getUserInfo = () => {
+  return request<User>({
+    url: "/user/info",
+    method: "get",
+  });
+};
+
+export const updateUserPassword = (data: UserUpdatePassword) => {
+  return request({
+    url: "/user/update_password",
+    method: "post",
+    data,
   });
 };

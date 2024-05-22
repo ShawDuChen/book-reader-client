@@ -13,13 +13,17 @@ function getMenuItem(route: AppRouteObject): ItemType {
     icon: meta?.icon,
     children:
       children && children.length
-        ? children.map((child) => getMenuItem(child))
+        ? children
+            .filter((child) => !child.meta?.hidden)
+            .map((child) => getMenuItem(child))
         : undefined,
   };
 }
 
 export default function AppMenu() {
-  const items: MenuProps["items"] = routes.map((route) => getMenuItem(route));
+  const items: MenuProps["items"] = routes
+    .filter((route) => !route.meta?.hidden)
+    .map((route) => getMenuItem(route));
 
   const navigate = useNavigate();
 
