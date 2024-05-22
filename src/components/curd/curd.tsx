@@ -1,6 +1,7 @@
-import { Button, Spin } from "antd";
+import { Button, Form, FormProps, Spin } from "antd";
 import CrudSearch, { CrudSearchProps } from "./curd-search";
 import CrudTable, { CrudTableProps } from "./curd-table";
+import CrudForm from "./curd-form";
 import { CommonStruct, PageQuery, PageResult } from "app";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -29,6 +30,21 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
     },
   });
 
+  const [form] = Form.useForm();
+
+  const submitForm: FormProps<T>["onFinish"] = (values) => {
+    console.log("values: ", values);
+  };
+
+  const showFormDialog = (added = true, initialValues?: T) => {
+    CrudForm.dialogForm({
+      form,
+      added,
+      onSubmit: submitForm,
+      initialValues,
+    });
+  };
+
   return (
     <Spin spinning={isLoading}>
       <CrudSearch
@@ -36,7 +52,9 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
         onChange={(query) => updatePageQuery((prev) => ({ ...prev, ...query }))}
       />
       <div className=" space-x-2 my-4">
-        <Button type="primary">新增</Button>
+        <Button type="primary" onClick={() => showFormDialog()}>
+          新增
+        </Button>
         {props.selectable && (
           <Button type="primary" danger>
             删除
