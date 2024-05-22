@@ -56,7 +56,7 @@ export default function RolePage() {
         </Button>
       </Form>
       <Table
-        key={"id"}
+        rowKey={"id"}
         dataSource={data?.lists}
         columns={columns}
         pagination={{

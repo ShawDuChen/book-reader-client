@@ -11,31 +11,36 @@ export default function AppLayout() {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout className=" h-screen">
-      <Layout.Sider
-        collapsible
-        collapsed={collapsed}
-        onCollapse={setCollapsed}
-        trigger={null}>
+      <Layout.Header
+        style={{ padding: "0", color: colorBgContainer }}
+        className="flex items-center">
         <AppLogo collapsed={collapsed} />
-        <AppMenu />
-      </Layout.Sider>
+        <AppHeader
+          collapsed={collapsed}
+          toggle={() => setCollapsed(!collapsed)}
+        />
+      </Layout.Header>
       <Layout>
-        <Layout.Header
-          style={{ background: colorBgContainer, padding: "0 32px" }}
-          className="flex items-center">
-          <AppHeader
-            collapsed={collapsed}
-            toggle={() => setCollapsed(!collapsed)}
-          />
-        </Layout.Header>
-        <Layout.Content
-          style={{ margin: 16, padding: 16, background: colorBgContainer }}
+        <Layout.Sider
+          collapsible
+          collapsed={collapsed}
+          onCollapse={setCollapsed}
           className="overflow-auto">
-          <Suspense fallback={<LoadingOutlined />}>
-            <Outlet />
-          </Suspense>
-        </Layout.Content>
-        <Layout.Footer></Layout.Footer>
+          <AppMenu />
+        </Layout.Sider>
+
+        <Layout>
+          <Layout.Content
+            style={{ background: colorBgContainer }}
+            className="m-4 p-4 mb-0 overflow-auto">
+            <Suspense fallback={<LoadingOutlined />}>
+              <Outlet />
+            </Suspense>
+          </Layout.Content>
+          <Layout.Footer className="px-0 py-2 text-center">
+            &copy; {` `} copyright;
+          </Layout.Footer>
+        </Layout>
       </Layout>
     </Layout>
   );

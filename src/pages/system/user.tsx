@@ -58,7 +58,9 @@ export default function UserPage() {
         <Form.Item name={"sex"} label="性别">
           <Select placeholder="请选择" allowClear showSearch>
             {SEX_LIST.map((item) => (
-              <Select.Option value={item.value}>{item.label}</Select.Option>
+              <Select.Option key={item.value} value={item.value}>
+                {item.label}
+              </Select.Option>
             ))}
           </Select>
         </Form.Item>

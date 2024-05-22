@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { lazy } from "react";
 import { AppRouteObject } from "app";
 import {
-  SettingOutlined,
+  ApartmentOutlined,
   UserAddOutlined,
   UserSwitchOutlined,
   RobotOutlined,
@@ -18,7 +18,7 @@ const systemRoute: AppRouteObject = {
   element: <Outlet />,
   meta: {
     title: "系统管理",
-    icon: <SettingOutlined />,
+    icon: <ApartmentOutlined />,
   },
   children: [
     {

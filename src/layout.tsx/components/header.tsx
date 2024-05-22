@@ -51,12 +51,12 @@ export default function AppHeader(props: {
   }, [macthed]);
 
   return (
-    <div className="flex flex-row w-full justify-between items-center">
+    <div className="flex flex-row w-full justify-between items-center px-8">
       <div className="flex items-center space-x-2">
         <div className="text-xl cursor-pointer" onClick={props.toggle}>
           {props.collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         </div>
-        <Breadcrumb items={breadcrumnItems} />
+        <Breadcrumb items={breadcrumnItems} style={{ color: "white" }} />
       </div>
       <Dropdown menu={{ items }}>
         <div className="cursor-pointer space-x-2">
