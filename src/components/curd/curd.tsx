@@ -90,12 +90,11 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
     }
   };
 
-  const showFormDialog = (added = true, initialValues?: T) => {
+  const showFormDialog = (initialValues?: T) => {
     CrudForm.dialogForm({
       form,
-      added,
       onSubmit: submitForm,
-      initialValues,
+      initialValues: initialValues,
       conditions: props.forms,
     });
   };
@@ -130,9 +129,7 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
                 <Button type="link" danger onClick={() => askDelete(record.id)}>
                   删除
                 </Button>
-                <Button
-                  type="link"
-                  onClick={() => showFormDialog(false, record)}>
+                <Button type="link" onClick={() => showFormDialog(record)}>
                   编辑
                 </Button>
               </div>

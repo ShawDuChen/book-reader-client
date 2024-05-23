@@ -12,22 +12,22 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <AntdApp>
-        <ConfigProvider
-          locale={zhCN}
-          theme={{
-            algorithm: theme.defaultAlgorithm,
-            components: {
-              Breadcrumb: {
-                itemColor: "#FFFFFFA6",
-                lastItemColor: "#FFFFFF",
-                separatorColor: "#FFFFFF",
-              },
+      <ConfigProvider
+        locale={zhCN}
+        theme={{
+          algorithm: theme.defaultAlgorithm,
+          components: {
+            Breadcrumb: {
+              itemColor: "#FFFFFFA6",
+              lastItemColor: "#FFFFFF",
+              separatorColor: "#FFFFFF",
             },
-          }}>
+          },
+        }}>
+        <AntdApp>
           <App />
-        </ConfigProvider>
-      </AntdApp>
+        </AntdApp>
+      </ConfigProvider>
     </QueryClientProvider>
   </React.StrictMode>,
 );
