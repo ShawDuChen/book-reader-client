@@ -120,4 +120,29 @@ declare module "app" {
     formItem: React.ReactNode;
     rules?: Rule[];
   };
+
+  interface CodeColumn {
+    dataIndex: string;
+    title: string;
+    type: string;
+    searchable?: boolean;
+    changed?: boolean;
+  }
+
+  interface Code extends CommonStruct {
+    id: number;
+    name: string;
+    columns?: CodeColumn[];
+  }
+
+  interface CodeGenerateResult {
+    table_name: string;
+    columns: CodeColumn[];
+    interface_code: string;
+    crud_file_code: string;
+    columns_file_code: string;
+    search_file_code: string;
+    forms_file_code: string;
+    api_file_code: string;
+  }
 }
