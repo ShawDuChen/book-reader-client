@@ -17,7 +17,7 @@ export const getCategory = (id: number) => {
 };
 
 export const createCategory = (data: Category) => {
-  return request({
+  return request<Category>({
     url: "/category",
     method: "post",
     data,
@@ -25,7 +25,7 @@ export const createCategory = (data: Category) => {
 };
 
 export const updateCategory = (data: Category) => {
-  return request({
+  return request<Category>({
     url: `/category/${data.id}`,
     method: "put",
     data,
@@ -33,7 +33,7 @@ export const updateCategory = (data: Category) => {
 };
 
 export const deleteCategory = (id: number) => {
-  return request({
+  return request<Category>({
     url: `/category/${id}`,
     method: "delete",
   });
