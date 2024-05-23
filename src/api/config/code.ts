@@ -1,5 +1,5 @@
 import request from "@/utils/request";
-import { Code, PageQuery, PageResult } from "app";
+import { Code, CodeGenerateResult, PageQuery, PageResult } from "app";
 
 export const fetchCodeList = (params: PageQuery<Partial<Code>>) => {
   return request<PageResult<Code>>({
@@ -36,5 +36,12 @@ export const deleteCode = (id: number) => {
   return request<Code>({
     url: `/code/${id}`,
     method: "delete",
+  });
+};
+
+export const generateCode = (id: number) => {
+  return request<CodeGenerateResult>({
+    url: `/code/${id}/generate`,
+    method: "get",
   });
 };

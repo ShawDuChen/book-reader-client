@@ -16,6 +16,7 @@ export type CrudProps<T> = {
   searchs?: CrudSearchProps<T>["conditions"];
   forms?: CrudFormProps<T>["conditions"];
   selectable?: boolean;
+  renderAction?: (_: T) => React.ReactNode;
 };
 
 function Crud<T extends CommonStruct>(props: CrudProps<T>) {
@@ -126,11 +127,12 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
             title: "操作",
             render: (_, record) => (
               <div className="space-x-2">
-                <Button type="link" danger onClick={() => askDelete(record.id)}>
-                  删除
-                </Button>
+                {props.renderAction && props.renderAction(record)}
                 <Button type="link" onClick={() => showFormDialog(record)}>
                   编辑
+                </Button>
+                <Button type="link" danger onClick={() => askDelete(record.id)}>
+                  删除
                 </Button>
               </div>
             ),
