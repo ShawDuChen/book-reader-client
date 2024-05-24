@@ -38,3 +38,10 @@ export const deleteAuthor = (id: number) => {
     method: "delete",
   });
 };
+
+export const authorAll = () => {
+  return request<Author[]>({
+    url: "/author/all",
+    method: "get",
+  });
+};

@@ -11,7 +11,7 @@ import {
 } from "@ant-design/icons";
 const CategoryPage = lazy(() => import("@/pages/business/category/index"));
 const AuthorPage = lazy(() => import("@/pages/business/author/index"));
-const BookPage = lazy(() => import("@/pages/business/book.tsx"));
+const BookPage = lazy(() => import("@/pages/business/book/index"));
 const ChapterPage = lazy(() => import("@/pages/business/chapter.tsx"));
 
 const businessRoute: AppRouteObject = {

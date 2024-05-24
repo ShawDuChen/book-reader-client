@@ -73,7 +73,10 @@ declare module "app" {
     id: number;
     name: string;
     category_id: number;
+    category?: Category;
     author_id: number;
+    author?: Author;
+    fetch_url?: string;
   }
 
   interface Category extends CommonStruct {

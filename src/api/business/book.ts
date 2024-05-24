@@ -17,7 +17,7 @@ export const getBook = (id: number) => {
 };
 
 export const createBook = (data: Book) => {
-  return request({
+  return request<Book>({
     url: "/book",
     method: "post",
     data,
@@ -25,7 +25,7 @@ export const createBook = (data: Book) => {
 };
 
 export const updateBook = (data: Book) => {
-  return request({
+  return request<Book>({
     url: `/book/${data.id}`,
     method: "put",
     data,
@@ -33,7 +33,7 @@ export const updateBook = (data: Book) => {
 };
 
 export const deleteBook = (id: number) => {
-  return request({
+  return request<Book>({
     url: `/book/${id}`,
     method: "delete",
   });

@@ -38,3 +38,10 @@ export const deleteCategory = (id: number) => {
     method: "delete",
   });
 };
+
+export const categoryAll = () => {
+  return request<Category[]>({
+    url: "/category/all",
+    method: "get",
+  });
+};
