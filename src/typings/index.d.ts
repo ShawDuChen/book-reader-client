@@ -93,6 +93,7 @@ declare module "app" {
     content: string;
     url: string;
     book_id: number;
+    book?: Book;
   }
 
   interface Dictionary extends CommonStruct {

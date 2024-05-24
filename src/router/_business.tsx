@@ -12,7 +12,7 @@ import {
 const CategoryPage = lazy(() => import("@/pages/business/category/index"));
 const AuthorPage = lazy(() => import("@/pages/business/author/index"));
 const BookPage = lazy(() => import("@/pages/business/book/index"));
-const ChapterPage = lazy(() => import("@/pages/business/chapter.tsx"));
+const ChapterPage = lazy(() => import("@/pages/business/chapter/index"));
 
 const businessRoute: AppRouteObject = {
   path: "business",

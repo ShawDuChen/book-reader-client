@@ -38,3 +38,10 @@ export const deleteBook = (id: number) => {
     method: "delete",
   });
 };
+
+export const bookAll = () => {
+  return request<Book[]>({
+    url: "/book/all",
+    method: "get",
+  });
+};

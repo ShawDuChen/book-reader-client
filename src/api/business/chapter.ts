@@ -17,7 +17,7 @@ export const getChapter = (id: number) => {
 };
 
 export const createChapter = (data: Chapter) => {
-  return request({
+  return request<Chapter>({
     url: "/chapter",
     method: "post",
     data,
@@ -25,7 +25,7 @@ export const createChapter = (data: Chapter) => {
 };
 
 export const updateChapter = (data: Chapter) => {
-  return request({
+  return request<Chapter>({
     url: `/chapter/${data.id}`,
     method: "put",
     data,
@@ -33,7 +33,7 @@ export const updateChapter = (data: Chapter) => {
 };
 
 export const deleteChapter = (id: number) => {
-  return request({
+  return request<Chapter>({
     url: `/chapter/${id}`,
     method: "delete",
   });
