@@ -9,7 +9,7 @@ import { Dictionary } from "app";
 import columns from "./modules/columns";
 import searchs from "./modules/search";
 import forms from "./modules/forms";
-export default function CodePage() {
+export default function DictionaryPage() {
   return (
     <Crud<Dictionary>
       listApi={fetchDictionaryList}

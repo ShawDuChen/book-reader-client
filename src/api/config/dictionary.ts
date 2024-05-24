@@ -38,3 +38,10 @@ export const deleteDictionary = (id: number) => {
     method: "delete",
   });
 };
+
+export const dictionaryAll = () => {
+  return request<Dictionary[]>({
+    url: "/dictionary/all",
+    method: "get",
+  });
+};

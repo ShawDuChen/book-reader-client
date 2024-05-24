@@ -1,27 +1,19 @@
 import { CrudProps } from "@/components";
 import { STATUS_MAP } from "@/utils/constants";
-import { Dictionary } from "app";
-import { NavLink } from "react-router-dom";
+import { DictionaryData } from "app";
 
-const columns: CrudProps<Dictionary>["columns"] = [
+const columns: CrudProps<DictionaryData>["columns"] = [
   {
     dataIndex: "id",
     title: "ID",
   },
   {
-    dataIndex: "name",
-    title: "字典名称",
+    dataIndex: "value",
+    title: "字典Value",
   },
   {
-    dataIndex: "identify",
-    title: "字典标识符",
-    render: (value, record) => (
-      <NavLink
-        to={`/config/dictdata?dictionary=${record.id}`}
-        className=" text-blue-400 hover:underline">
-        {value}
-      </NavLink>
-    ),
+    dataIndex: "label",
+    title: "字典Label",
   },
   {
     dataIndex: "status",

@@ -35,7 +35,7 @@ export const updateDictData = (data: DictionaryData) => {
 };
 
 export const deleteDictData = (id: number) => {
-  return request({
+  return request<DictionaryData>({
     url: `/dict_data/${id}`,
     method: "delete",
   });

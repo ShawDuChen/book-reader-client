@@ -17,6 +17,7 @@ export type CrudProps<T> = {
   forms?: CrudFormProps<T>["conditions"];
   selectable?: boolean;
   renderAction?: (_: T) => React.ReactNode;
+  initSearch?: CrudSearchProps<T>["initSearch"];
 };
 
 function Crud<T extends CommonStruct>(props: CrudProps<T>) {
@@ -104,6 +105,7 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
     <Spin spinning={isLoading}>
       <CrudSearch
         conditions={props.searchs}
+        initSearch={props.initSearch}
         onChange={(query) => updatePageQuery((prev) => ({ ...prev, ...query }))}
       />
       <div className=" space-x-2 my-4">

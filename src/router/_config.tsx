@@ -10,7 +10,7 @@ import { lazy } from "react";
 import { Outlet } from "react-router-dom";
 
 const DictionaryPage = lazy(() => import("@/pages/config/dictionary/index"));
-const DictDataPage = lazy(() => import("@/pages/config/dict-data"));
+const DictDataPage = lazy(() => import("@/pages/config/dict-data/index"));
 const CodePage = lazy(() => import("@/pages/config/code/index"));
 const configRoute: AppRouteObject = {
   path: "config",
