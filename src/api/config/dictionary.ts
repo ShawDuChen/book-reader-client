@@ -17,7 +17,7 @@ export const fetchDictionary = (id: number) => {
 };
 
 export const createDictionary = (data: Dictionary) => {
-  return request({
+  return request<Dictionary>({
     url: "/dictionary",
     method: "post",
     data,
@@ -25,7 +25,7 @@ export const createDictionary = (data: Dictionary) => {
 };
 
 export const updateDictionary = (data: Dictionary) => {
-  return request({
+  return request<Dictionary>({
     url: `/dictionary/${data.id}`,
     method: "put",
     data,
@@ -33,7 +33,7 @@ export const updateDictionary = (data: Dictionary) => {
 };
 
 export const deleteDictionary = (id: number) => {
-  return request({
+  return request<Dictionary>({
     url: `/dictionary/${id}`,
     method: "delete",
   });

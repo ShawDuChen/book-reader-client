@@ -4,3 +4,15 @@ export const SEX_LIST = [
   { value: "M", label: "男" },
   { value: "F", label: "女" },
 ];
+export const STATUS_LIST = [
+  { value: 1, label: "可用" },
+  { value: 0, label: "不可用" },
+];
+
+export const STATUS_MAP = STATUS_LIST.reduce(
+  (prev, curr) => {
+    prev[curr.value] = curr.label;
+    return prev;
+  },
+  {} as Record<string, string>,
+);
