@@ -17,7 +17,7 @@ export const getRole = (id: number) => {
 };
 
 export const createRole = (data: Role) => {
-  return request({
+  return request<Role>({
     url: "/role",
     method: "post",
     data,
@@ -25,7 +25,7 @@ export const createRole = (data: Role) => {
 };
 
 export const updateRole = (data: Role) => {
-  return request({
+  return request<Role>({
     url: `/role/${data.id}`,
     method: "put",
     data,
@@ -33,7 +33,7 @@ export const updateRole = (data: Role) => {
 };
 
 export const deleteRole = (id: number) => {
-  return request({
+  return request<Role>({
     url: `/role/${id}`,
     method: "delete",
   });

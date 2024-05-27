@@ -54,6 +54,7 @@ declare module "app" {
     tel: string;
     username: string;
     nickname: string;
+    password: string;
   }
 
   interface Role extends CommonStruct {

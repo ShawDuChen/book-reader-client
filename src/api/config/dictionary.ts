@@ -39,7 +39,7 @@ export const deleteDictionary = (id: number) => {
   });
 };
 
-export const dictionaryAll = () => {
+export const allDictionary = () => {
   return request<Dictionary[]>({
     url: "/dictionary/all",
     method: "get",

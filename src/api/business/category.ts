@@ -39,7 +39,7 @@ export const deleteCategory = (id: number) => {
   });
 };
 
-export const categoryAll = () => {
+export const allCategory = () => {
   return request<Category[]>({
     url: "/category/all",
     method: "get",

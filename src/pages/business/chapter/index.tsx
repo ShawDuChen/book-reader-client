@@ -10,12 +10,12 @@ import columns from "./modules/columns";
 import searchs from "./modules/search";
 import forms from "./modules/forms";
 import { useQuery } from "@tanstack/react-query";
-import { bookAll } from "@/api/business/book";
+import { allBook } from "@/api/business/book";
 
 export default function ChapterPage() {
   const { data: books } = useQuery({
     queryKey: ["book-all"],
-    queryFn: bookAll,
+    queryFn: allBook,
   });
 
   return (

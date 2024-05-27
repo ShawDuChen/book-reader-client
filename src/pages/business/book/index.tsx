@@ -10,17 +10,17 @@ import columns from "./modules/columns";
 import searchs from "./modules/search";
 import forms from "./modules/forms";
 import { useQuery } from "@tanstack/react-query";
-import { authorAll } from "@/api/business/author";
-import { categoryAll } from "@/api/business/category";
+import { allAuthor } from "@/api/business/author";
+import { allCategory } from "@/api/business/category";
 export default function BookPage() {
   const { data: authors } = useQuery({
     queryKey: ["author-all"],
-    queryFn: authorAll,
+    queryFn: allAuthor,
   });
 
   const { data: categorys } = useQuery({
     queryKey: ["category-all"],
-    queryFn: categoryAll,
+    queryFn: allCategory,
   });
 
   return (

@@ -31,7 +31,7 @@ export const getUser = (id: number) => {
 };
 
 export const createUser = (data: User) => {
-  return request({
+  return request<User>({
     url: "/user",
     method: "post",
     data,
@@ -39,7 +39,7 @@ export const createUser = (data: User) => {
 };
 
 export const updateUser = (data: User) => {
-  return request({
+  return request<User>({
     url: `/user/${data.id}`,
     method: "put",
     data,
@@ -47,7 +47,7 @@ export const updateUser = (data: User) => {
 };
 
 export const deleteUser = (id: number) => {
-  return request({
+  return request<User>({
     url: `/user/${id}`,
     method: "delete",
   });
@@ -65,5 +65,12 @@ export const updateUserPassword = (data: UserUpdatePassword) => {
     url: "/user/update_password",
     method: "post",
     data,
+  });
+};
+
+export const allUser = () => {
+  return request<User[]>({
+    url: "/user/all",
+    method: "get",
   });
 };

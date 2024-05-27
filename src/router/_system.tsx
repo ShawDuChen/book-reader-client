@@ -9,8 +9,8 @@ import {
   RobotOutlined,
 } from "@ant-design/icons";
 
-const UserPage = lazy(() => import("@/pages/system/user"));
-const RolePage = lazy(() => import("@/pages/system/role"));
+const UserPage = lazy(() => import("@/pages/system/user/index"));
+const RolePage = lazy(() => import("@/pages/system/role/index"));
 const LogPage = lazy(() => import("@/pages/system/log"));
 
 const systemRoute: AppRouteObject = {
@@ -22,19 +22,19 @@ const systemRoute: AppRouteObject = {
   },
   children: [
     {
-      path: "user",
-      element: <UserPage />,
-      meta: {
-        title: "用户管理",
-        icon: <UserAddOutlined />,
-      },
-    },
-    {
       path: "role",
       element: <RolePage />,
       meta: {
         title: "角色管理",
         icon: <UserSwitchOutlined />,
+      },
+    },
+    {
+      path: "user",
+      element: <UserPage />,
+      meta: {
+        title: "用户管理",
+        icon: <UserAddOutlined />,
       },
     },
     {

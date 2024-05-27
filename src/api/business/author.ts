@@ -39,7 +39,7 @@ export const deleteAuthor = (id: number) => {
   });
 };
 
-export const authorAll = () => {
+export const allAuthor = () => {
   return request<Author[]>({
     url: "/author/all",
     method: "get",

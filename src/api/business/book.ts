@@ -39,7 +39,7 @@ export const deleteBook = (id: number) => {
   });
 };
 
-export const bookAll = () => {
+export const allBook = () => {
   return request<Book[]>({
     url: "/book/all",
     method: "get",

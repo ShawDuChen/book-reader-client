@@ -10,13 +10,13 @@ import columns from "./modules/columns";
 import searchs from "./modules/search";
 import forms from "./modules/forms";
 import { useQuery } from "@tanstack/react-query";
-import { dictionaryAll } from "@/api/config/dictionary";
+import { allDictionary } from "@/api/config/dictionary";
 import { useSearchParams } from "react-router-dom";
 
 export default function DictDataPage() {
   const { data } = useQuery({
     queryKey: ["dictionary-all"],
-    queryFn: dictionaryAll,
+    queryFn: allDictionary,
   });
 
   const [search] = useSearchParams();
