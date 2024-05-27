@@ -1,11 +1,12 @@
 import { CrudProps } from "@/components";
 import { Input, Select } from "antd";
-import { Author, Book, Category } from "app";
+import { Author, Book, Category, CrawlRule } from "app";
 
-const forms: (_?: Author[], _2?: Category[]) => CrudProps<Book>["forms"] = (
-  authors,
-  categorys,
-) => [
+const forms: (
+  _?: Author[],
+  _2?: Category[],
+  _3?: CrawlRule[],
+) => CrudProps<Book>["forms"] = (authors, categorys, crawlRules) => [
   {
     name: "name",
     label: "书名",
@@ -16,13 +17,15 @@ const forms: (_?: Author[], _2?: Category[]) => CrudProps<Book>["forms"] = (
     name: "author_id",
     label: "作者",
     formItem: (
-      <Select placeholder="请选择作者" allowClear showSearch>
-        {authors?.map((item) => (
-          <Select.Option key={item.id} value={item.id}>
-            {item.name}
-          </Select.Option>
-        ))}
-      </Select>
+      <Select
+        placeholder="请选择作者"
+        allowClear
+        showSearch
+        options={authors?.map((item) => ({
+          value: item.id,
+          label: item.name,
+        }))}
+      />
     ),
     rules: [{ required: true, message: "请选择作者" }],
   },
@@ -30,15 +33,32 @@ const forms: (_?: Author[], _2?: Category[]) => CrudProps<Book>["forms"] = (
     name: "category_id",
     label: "分类",
     formItem: (
-      <Select placeholder="请选择分类" allowClear showSearch>
-        {categorys?.map((item) => (
-          <Select.Option key={item.id} value={item.id}>
-            {item.name}
-          </Select.Option>
-        ))}
-      </Select>
+      <Select
+        placeholder="请选择分类"
+        allowClear
+        showSearch
+        options={categorys?.map((item) => ({
+          value: item.id,
+          label: item.name,
+        }))}
+      />
     ),
     rules: [{ required: true, message: "请选择分类" }],
+  },
+  {
+    name: "crawl_rule_id",
+    label: "爬取规则",
+    formItem: (
+      <Select
+        placeholder="请选择规则"
+        allowClear
+        showSearch
+        options={crawlRules?.map((item) => ({
+          value: item.id,
+          label: item.name,
+        }))}
+      />
+    ),
   },
   {
     name: "fetch_url",

@@ -14,13 +14,7 @@ const forms: CrudProps<Author>["forms"] = [
     name: "sex",
     label: "性别",
     formItem: (
-      <Select placeholder="请选择" allowClear showSearch>
-        {SEX_LIST.map((item) => (
-          <Select.Option key={item.value} value={item.value}>
-            {item.label}
-          </Select.Option>
-        ))}
-      </Select>
+      <Select placeholder="请选择" allowClear showSearch options={SEX_LIST} />
     ),
     rules: [{ required: true, message: "请选择性别" }],
   },

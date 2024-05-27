@@ -14,6 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import { allAuthor } from "@/api/business/author";
 import { allCategory } from "@/api/business/category";
 import { Button, message } from "antd";
+import { allCrawlRule } from "@/api/system/crawl-rule";
 export default function BookPage() {
   const { data: authors } = useQuery({
     queryKey: ["author-all"],
@@ -23,6 +24,11 @@ export default function BookPage() {
   const { data: categorys } = useQuery({
     queryKey: ["category-all"],
     queryFn: allCategory,
+  });
+
+  const { data: crawlRules } = useQuery({
+    queryKey: ["crawl-rule-all"],
+    queryFn: allCrawlRule,
   });
 
   const startCrawl = (id: number) => {
@@ -39,8 +45,8 @@ export default function BookPage() {
       deleteApi={deleteBook}
       queryKey="book"
       columns={columns}
-      searchs={searchs}
-      forms={forms(authors, categorys)}
+      searchs={searchs(authors, categorys, crawlRules)}
+      forms={forms(authors, categorys, crawlRules)}
       renderAction={(record) => (
         <>
           <Button type="link" onClick={() => startCrawl(record.id)}>

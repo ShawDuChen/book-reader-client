@@ -19,15 +19,7 @@ const forms: CrudProps<Dictionary>["forms"] = [
   {
     name: "status",
     label: "状态",
-    formItem: (
-      <Select placeholder="请选择" allowClear>
-        {STATUS_LIST.map((item) => (
-          <Select.Option key={item.value} value={item.value}>
-            {item.label}
-          </Select.Option>
-        ))}
-      </Select>
-    ),
+    formItem: <Select placeholder="请选择" allowClear options={STATUS_LIST} />,
     rules: [{ required: true, type: "number", message: "请选择状态" }],
   },
   {

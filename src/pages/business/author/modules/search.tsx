@@ -13,13 +13,13 @@ const searchs: CrudProps<Author>["searchs"] = [
     name: "sex",
     label: "性别",
     formItem: (
-      <Select placeholder="请选择" style={{ width: 120 }} allowClear showSearch>
-        {SEX_LIST.map((item) => (
-          <Select.Option key={item.value} value={item.value}>
-            {item.label}
-          </Select.Option>
-        ))}
-      </Select>
+      <Select
+        placeholder="请选择"
+        style={{ width: 120 }}
+        allowClear
+        showSearch
+        options={SEX_LIST}
+      />
     ),
   },
   {

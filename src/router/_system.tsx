@@ -7,11 +7,13 @@ import {
   UserAddOutlined,
   UserSwitchOutlined,
   RobotOutlined,
+  FundProjectionScreenOutlined,
 } from "@ant-design/icons";
 
 const UserPage = lazy(() => import("@/pages/system/user/index"));
 const RolePage = lazy(() => import("@/pages/system/role/index"));
 const LogPage = lazy(() => import("@/pages/system/log"));
+const CrawlRulePage = lazy(() => import("@/pages/system/crawl-rule/index"));
 
 const systemRoute: AppRouteObject = {
   path: "system",
@@ -35,6 +37,14 @@ const systemRoute: AppRouteObject = {
       meta: {
         title: "用户管理",
         icon: <UserAddOutlined />,
+      },
+    },
+    {
+      path: "crawl-rule",
+      element: <CrawlRulePage />,
+      meta: {
+        title: "爬虫规则",
+        icon: <FundProjectionScreenOutlined />,
       },
     },
     {

@@ -46,26 +46,18 @@ export default function LogPage() {
             style={{ width: 120 }}
             placeholder="请选择"
             allowClear
-            showSearch>
-            {METHODS.map((m) => (
-              <Select.Option key={m} value={m}>
-                {m}
-              </Select.Option>
-            ))}
-          </Select>
+            showSearch
+            options={METHODS.map((m) => ({ value: m, label: m }))}
+          />
         </Form.Item>
         <Form.Item name="status" label="状态码">
           <Select
             style={{ width: 120 }}
             placeholder="请选择"
             allowClear
-            showSearch>
-            {STATUS_CODES.map((code) => (
-              <Select.Option key={code} value={code}>
-                {code}
-              </Select.Option>
-            ))}
-          </Select>
+            showSearch
+            options={STATUS_CODES.map((code) => ({ value: code, label: code }))}
+          />
         </Form.Item>
         <Button htmlType="reset">重置</Button>
         <Button type="primary" htmlType="submit">

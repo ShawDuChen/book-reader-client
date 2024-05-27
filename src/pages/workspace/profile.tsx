@@ -69,13 +69,7 @@ export default function WorkspaceProfile() {
               name="sex"
               label="性别"
               rules={[{ required: true, message: "请选择性别" }]}>
-              <Select placeholder="请选择">
-                {SEX_LIST.map((item) => (
-                  <Select.Option key={item.value} value={item.value}>
-                    {item.label}
-                  </Select.Option>
-                ))}
-              </Select>
+              <Select placeholder="请选择" options={SEX_LIST} />
             </Form.Item>
             <Form.Item
               name="tel"

@@ -78,6 +78,8 @@ declare module "app" {
     author_id: number;
     author?: Author;
     fetch_url?: string;
+    crawl_rule_id: number;
+    crawl_rule?: CrawlRule;
   }
 
   interface Category extends CommonStruct {
@@ -149,5 +151,14 @@ declare module "app" {
     search_file_code: string;
     forms_file_code: string;
     api_file_code: string;
+  }
+
+  interface CrawlRule extends CommonStruct {
+    id: number;
+    name: string;
+    website_url: string;
+    list_selector: string;
+    content_selector: string;
+    books?: Book[];
   }
 }

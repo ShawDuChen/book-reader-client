@@ -26,6 +26,11 @@ const columns: CrudProps<Book>["columns"] = [
       </a>
     ),
   },
+  {
+    dataIndex: "crawl_rule_id",
+    title: "爬取规则",
+    render: (_, record) => record.crawl_rule?.name,
+  },
   { dataIndex: "remark", title: "备注" },
   { dataIndex: "created_at", title: "创建时间" },
   { dataIndex: "created_by", title: "创建人" },

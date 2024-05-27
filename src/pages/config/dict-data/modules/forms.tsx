@@ -10,13 +10,14 @@ const forms: (_?: Dictionary[]) => CrudProps<DictionaryData>["forms"] = (
     name: "dict_type",
     label: "关联字典",
     formItem: (
-      <Select placeholder="请选择" allowClear>
-        {dict_types?.map((dict) => (
-          <Select.Option key={dict.id} value={dict.id}>
-            {dict.name}
-          </Select.Option>
-        ))}
-      </Select>
+      <Select
+        placeholder="请选择"
+        allowClear
+        options={dict_types?.map((item) => ({
+          value: item.id,
+          label: item.name,
+        }))}
+      />
     ),
     rules: [{ required: true, message: "请选择关联字典" }],
   },
@@ -35,15 +36,7 @@ const forms: (_?: Dictionary[]) => CrudProps<DictionaryData>["forms"] = (
   {
     name: "status",
     label: "状态",
-    formItem: (
-      <Select placeholder="请选择" allowClear>
-        {STATUS_LIST.map((item) => (
-          <Select.Option key={item.value} value={item.value}>
-            {item.label}
-          </Select.Option>
-        ))}
-      </Select>
-    ),
+    formItem: <Select placeholder="请选择" allowClear options={STATUS_LIST} />,
     rules: [{ required: true, type: "number", message: "请选择状态" }],
   },
   {
