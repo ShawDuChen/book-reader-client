@@ -1,5 +1,17 @@
+import { Clipboard } from "@/components";
 import { Drawer, DrawerProps, Tabs, TabsProps } from "antd";
 import { CodeGenerateResult } from "app";
+
+const CodePanel = (props: { code?: string }) => {
+  return (
+    <div className="relative">
+      <Clipboard text={props.code} className=" absolute top-2 right-2" />
+      <pre>
+        <code lang="typescript">{props.code}</code>
+      </pre>
+    </div>
+  );
+};
 
 export default function CodeDrawer(
   props: DrawerProps & {
@@ -11,56 +23,32 @@ export default function CodeDrawer(
     {
       key: "api",
       label: "API File",
-      children: (
-        <pre>
-          <code lang="typescript">{data?.api_file_code}</code>
-        </pre>
-      ),
+      children: <CodePanel code={data?.api_file_code} />,
     },
     {
       key: "crud",
       label: "Crud File",
-      children: (
-        <pre>
-          <code lang="typescript">{data?.crud_file_code}</code>
-        </pre>
-      ),
+      children: <CodePanel code={data?.crud_file_code} />,
     },
     {
       key: "interface",
       label: "Interface File",
-      children: (
-        <pre>
-          <code>{data?.interface_code}</code>
-        </pre>
-      ),
+      children: <CodePanel code={data?.interface_code} />,
     },
     {
       key: "columns",
       label: "Columns File",
-      children: (
-        <pre>
-          <code>{data?.columns_file_code}</code>
-        </pre>
-      ),
+      children: <CodePanel code={data?.columns_file_code} />,
     },
     {
       key: "searchs",
       label: "Searchs File",
-      children: (
-        <pre>
-          <code>{data?.search_file_code}</code>
-        </pre>
-      ),
+      children: <CodePanel code={data?.search_file_code} />,
     },
     {
       key: "forms",
       label: "Forms File",
-      children: (
-        <pre>
-          <code>{data?.forms_file_code}</code>
-        </pre>
-      ),
+      children: <CodePanel code={data?.forms_file_code} />,
     },
   ];
 
