@@ -15,6 +15,8 @@ import { allAuthor } from "@/api/business/author";
 import { allCategory } from "@/api/business/category";
 import { Button, message } from "antd";
 import { allCrawlRule } from "@/api/system/crawl-rule";
+import { useState } from "react";
+import ChapterDrawer from "./modules/chapter-drawer";
 export default function BookPage() {
   const { data: authors } = useQuery({
     queryKey: ["author-all"],
@@ -37,23 +39,42 @@ export default function BookPage() {
     });
   };
 
+  const [chapterDrawer, setChapterDrawer] = useState({
+    open: false,
+    id: 0,
+  });
+  const showChapters = (id: number) => {
+    setChapterDrawer({ id, open: true });
+  };
+
   return (
-    <Crud<Book>
-      listApi={fetchBookList}
-      createApi={createBook}
-      updateApi={updateBook}
-      deleteApi={deleteBook}
-      queryKey="book"
-      columns={columns}
-      searchs={searchs(authors, categorys, crawlRules)}
-      forms={forms(authors, categorys, crawlRules)}
-      renderAction={(record) => (
-        <>
-          <Button type="link" onClick={() => startCrawl(record.id)}>
-            抓取
-          </Button>
-        </>
-      )}
-    />
+    <>
+      <Crud<Book>
+        listApi={fetchBookList}
+        createApi={createBook}
+        updateApi={updateBook}
+        deleteApi={deleteBook}
+        queryKey="book"
+        columns={columns}
+        searchs={searchs(authors, categorys, crawlRules)}
+        forms={forms(authors, categorys, crawlRules)}
+        renderAction={(record) => (
+          <>
+            <Button type="link" onClick={() => startCrawl(record.id)}>
+              抓取
+            </Button>
+            <Button type="link" onClick={() => showChapters(record.id)}>
+              章节目录
+            </Button>
+          </>
+        )}
+      />
+
+      <ChapterDrawer
+        id={chapterDrawer.id}
+        open={chapterDrawer.open}
+        toggle={(open) => setChapterDrawer((prev) => ({ ...prev, open }))}
+      />
+    </>
   );
 }

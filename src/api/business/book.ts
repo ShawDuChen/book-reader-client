@@ -1,5 +1,5 @@
 import request from "@/utils/request";
-import { Book, PageQuery, PageResult } from "app";
+import { Book, Chapter, PageQuery, PageResult } from "app";
 
 export const fetchBookList = (params: PageQuery<Partial<Book>>) => {
   return request<PageResult<Book>>({
@@ -49,6 +49,13 @@ export const allBook = () => {
 export const startCrawlBook = (id: number) => {
   return request({
     url: `/book/${id}/startCrawl`,
+    method: "get",
+  });
+};
+
+export const fetchBookChapters = (id: number) => {
+  return request<Chapter[]>({
+    url: `/book/${id}/chapters`,
     method: "get",
   });
 };
