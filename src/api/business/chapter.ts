@@ -38,3 +38,10 @@ export const deleteChapter = (id: number) => {
     method: "delete",
   });
 };
+
+export const crawlChapterContent = (id: number) => {
+  return request<Chapter>({
+    url: `/chapter/${id}/crawl`,
+    method: "get",
+  });
+};

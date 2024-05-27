@@ -12,6 +12,7 @@ export type CrudProps<T> = {
   createApi?: (_: T) => Promise<T>;
   updateApi?: (_: T) => Promise<T>;
   deleteApi?: (_: number) => Promise<T>;
+  infoApi?: (_: number) => Promise<T>;
   columns: CrudTableProps<T>["columns"];
   searchs?: CrudSearchProps<T>["conditions"];
   forms?: CrudFormProps<T>["conditions"];
@@ -69,8 +70,6 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
   });
 
   const askDelete = (id?: number) => {
-    console.log(id);
-
     if (!id) return;
     Modal.confirm({
       title: "删除提示",
@@ -92,13 +91,17 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
     }
   };
 
-  const showFormDialog = (initialValues?: T) => {
-    CrudForm.dialogForm({
+  const showFormDialog = async (initialValues?: T) => {
+    const options = {
       form,
       onSubmit: submitForm,
       initialValues: initialValues,
       conditions: props.forms,
-    });
+    };
+    if (props.infoApi && initialValues?.id) {
+      options.initialValues = await props.infoApi(initialValues.id);
+    }
+    CrudForm.dialogForm(options);
   };
 
   return (

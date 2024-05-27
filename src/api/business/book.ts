@@ -45,3 +45,10 @@ export const allBook = () => {
     method: "get",
   });
 };
+
+export const startCrawlBook = (id: number) => {
+  return request({
+    url: `/book/${id}/startCrawl`,
+    method: "get",
+  });
+};

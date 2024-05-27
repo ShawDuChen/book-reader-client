@@ -21,7 +21,7 @@ const forms: (_?: Book[]) => CrudProps<Chapter>["forms"] = (books) => [
     formItem: (
       <Input.TextArea
         placeholder="请输入章节内容"
-        rows={5}
+        rows={10}
         maxLength={10000}
         showCount
         allowClear
