@@ -8,12 +8,14 @@ import {
   UserSwitchOutlined,
   RobotOutlined,
   FundProjectionScreenOutlined,
+  MenuOutlined,
 } from "@ant-design/icons";
 
 const UserPage = lazy(() => import("@/pages/system/user/index"));
 const RolePage = lazy(() => import("@/pages/system/role/index"));
 const LogPage = lazy(() => import("@/pages/system/log"));
 const CrawlRulePage = lazy(() => import("@/pages/system/crawl-rule/index"));
+const MenuPage = lazy(() => import("@/pages/system/menu"));
 
 const systemRoute: AppRouteObject = {
   path: "system",
@@ -45,6 +47,14 @@ const systemRoute: AppRouteObject = {
       meta: {
         title: "爬虫规则",
         icon: <FundProjectionScreenOutlined />,
+      },
+    },
+    {
+      path: "menu",
+      element: <MenuPage />,
+      meta: {
+        title: "菜单管理",
+        icon: <MenuOutlined />,
       },
     },
     {

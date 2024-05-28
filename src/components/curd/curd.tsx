@@ -19,6 +19,7 @@ export type CrudProps<T> = {
   selectable?: boolean;
   renderAction?: (_: T) => React.ReactNode;
   initSearch?: CrudSearchProps<T>["initSearch"];
+  beforeSubmit?: (_: T) => T;
 };
 
 function Crud<T extends CommonStruct>(props: CrudProps<T>) {
@@ -84,10 +85,13 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
   const [form] = Form.useForm();
 
   const submitForm: FormProps<T>["onFinish"] = (values) => {
+    const submitValues = props.beforeSubmit
+      ? props.beforeSubmit(values)
+      : values;
     if (!values.id) {
-      createMutation.mutate(values);
+      createMutation.mutate(submitValues);
     } else {
-      updateMutation.mutate(values);
+      updateMutation.mutate(submitValues);
     }
   };
 

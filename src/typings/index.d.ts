@@ -161,4 +161,17 @@ declare module "app" {
     content_selector: string;
     books?: Book[];
   }
+
+  interface Menu extends CommonStruct {
+    id: number;
+    name: string;
+    parent_id: number;
+    parent_ids?: number[];
+    path: string;
+    icon: string;
+    component: string;
+    visible: number;
+    order: number;
+    children?: Menu[];
+  }
 }
