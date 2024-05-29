@@ -21,6 +21,11 @@ export default function CodeDrawer(
   const { data, ...restProps } = props;
   const items: TabsProps["items"] = [
     {
+      key: "interface",
+      label: "Interface File",
+      children: <CodePanel code={data?.interface_code} />,
+    },
+    {
       key: "api",
       label: "API File",
       children: <CodePanel code={data?.api_file_code} />,
@@ -29,11 +34,6 @@ export default function CodeDrawer(
       key: "crud",
       label: "Crud File",
       children: <CodePanel code={data?.crud_file_code} />,
-    },
-    {
-      key: "interface",
-      label: "Interface File",
-      children: <CodePanel code={data?.interface_code} />,
     },
     {
       key: "columns",

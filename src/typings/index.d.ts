@@ -186,4 +186,15 @@ declare module "app" {
     dislike_count: number;
     status: 0 | 1 | 2;
   }
+
+  interface BookReply extends CommonStruct {
+    id: number;
+    content: string;
+    comment_id: number;
+    comment?: BookComment;
+    user_id: number;
+    user?: User;
+    like_count: number;
+    dislike_count: number;
+  }
 }
