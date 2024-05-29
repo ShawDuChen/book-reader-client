@@ -10,6 +10,10 @@ import { Outlet } from "react-router-dom";
 
 const BookCommentPage = lazy(() => import("@/pages/comment/book-comment"));
 const BookReplyPage = lazy(() => import("@/pages/comment/book-reply"));
+const ChapterCommentPage = lazy(
+  () => import("@/pages/comment/chapter-comment"),
+);
+const ChapterReplyPage = lazy(() => import("@/pages/comment/chapter-reply"));
 
 const commentRoute: AppRouteObject = {
   path: "comment",
@@ -32,6 +36,22 @@ const commentRoute: AppRouteObject = {
       element: <BookReplyPage />,
       meta: {
         title: "书籍评论回复",
+        icon: <InboxOutlined />,
+      },
+    },
+    {
+      path: "chapterc",
+      element: <ChapterCommentPage />,
+      meta: {
+        title: "章节评论",
+        icon: <BookOutlined />,
+      },
+    },
+    {
+      path: "chapterr",
+      element: <ChapterReplyPage />,
+      meta: {
+        title: "章节评论回复",
         icon: <InboxOutlined />,
       },
     },

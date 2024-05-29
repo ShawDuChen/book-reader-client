@@ -187,11 +187,34 @@ declare module "app" {
     status: 0 | 1 | 2;
   }
 
+  interface ChapterComment extends CommonStruct {
+    id: number;
+    content: string;
+    user_id: number;
+    user?: User;
+    chapter_id: number;
+    chapter?: Chapter;
+    like_count: number;
+    dislike_count: number;
+    status: 0 | 1 | 2;
+  }
+
   interface BookReply extends CommonStruct {
     id: number;
     content: string;
     comment_id: number;
     comment?: BookComment;
+    user_id: number;
+    user?: User;
+    like_count: number;
+    dislike_count: number;
+  }
+
+  interface ChapterReply extends CommonStruct {
+    id: number;
+    content: string;
+    comment_id: number;
+    comment?: ChapterComment;
     user_id: number;
     user?: User;
     like_count: number;
@@ -209,6 +232,20 @@ declare module "app" {
   }
 
   interface BookReplyAction extends CommonStruct {
+    id?: number;
+    action?: ReplyActionType;
+    reply_id?: number;
+    user_id?: number;
+  }
+
+  interface ChapterCommentAction extends CommonStruct {
+    id?: number;
+    action?: CommentActionType;
+    comment_id?: number;
+    user_id?: number;
+  }
+
+  interface ChapterReplyAction extends CommonStruct {
     id?: number;
     action?: ReplyActionType;
     reply_id?: number;

@@ -45,3 +45,10 @@ export const crawlChapterContent = (id: number) => {
     method: "get",
   });
 };
+
+export const allChapter = () => {
+  return request<Chapter[]>({
+    url: "/chapter/all",
+    method: "get",
+  });
+};
