@@ -197,4 +197,13 @@ declare module "app" {
     like_count: number;
     dislike_count: number;
   }
+
+  type CommentActionType = "LIKE" | "DISLIKE";
+
+  interface BookCommentAction extends CommonStruct {
+    id?: number;
+    action?: CommentActionType;
+    comment_id?: number;
+    user_id?: number;
+  }
 }
