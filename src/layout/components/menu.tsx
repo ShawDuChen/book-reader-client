@@ -1,7 +1,6 @@
 import { Menu, MenuProps } from "antd";
 import { useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import routes from "@/router";
 import { AppRouteObject } from "app";
 import { ItemType } from "antd/es/menu/interface";
 
@@ -20,10 +19,12 @@ function getMenuItem(route: AppRouteObject): ItemType {
   };
 }
 
-export default function AppMenu() {
+export default function AppMenu({ routes }: { routes: AppRouteObject[] }) {
   const items: MenuProps["items"] = routes
     .filter((route) => !route.meta?.hidden)
     .map((route) => getMenuItem(route));
+
+  console.log("menus::::", routes, items);
 
   const navigate = useNavigate();
 

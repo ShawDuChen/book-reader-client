@@ -1,13 +1,18 @@
 import { Layout, theme } from "antd";
 import { AppHeader, AppLogo, AppMenu } from "./components";
-import { Suspense } from "react";
+import { Suspense, useContext } from "react";
 import { Outlet } from "react-router-dom";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useStore } from "@/store";
 import { useQuery } from "@tanstack/react-query";
 import { getUserInfo } from "@/api/system/user";
+import { RoutesContext } from "@/context/route-context";
 
 export default function AppLayout() {
+  const { routes } = useContext(RoutesContext);
+
+  console.log(routes);
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -35,7 +40,7 @@ export default function AppLayout() {
           collapsed={siderCollapsed}
           onCollapse={toggleSider}
           className="overflow-auto">
-          <AppMenu />
+          <AppMenu routes={routes} />
         </Layout.Sider>
 
         <Layout>

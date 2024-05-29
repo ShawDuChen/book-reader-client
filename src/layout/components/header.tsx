@@ -1,4 +1,4 @@
-import { flatRoutes } from "@/router";
+import { RoutesContext } from "@/context/route-context";
 import { useStore } from "@/store";
 import { removeToken } from "@/utils/token";
 import {
@@ -9,13 +9,15 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, BreadcrumbProps, Dropdown, MenuProps, Modal } from "antd";
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { useMatches, useNavigate } from "react-router-dom";
 
 export default function AppHeader(props: {
   collapsed: boolean;
   toggle: () => void;
 }) {
+  const { flatRoutes } = useContext(RoutesContext);
+
   const { user } = useStore();
 
   const items: MenuProps["items"] = [
@@ -52,7 +54,7 @@ export default function AppHeader(props: {
           title: find?.meta?.title || title,
         };
       });
-  }, [macthed]);
+  }, [macthed, flatRoutes]);
 
   const askLogout = () => {
     Modal.confirm({

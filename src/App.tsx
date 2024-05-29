@@ -6,8 +6,12 @@ import {
 } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { getToken } from "@/utils/token.ts";
-import routes from "@/router/index.ts";
+import routes, { menuToRoutes } from "@/router/index.ts";
 import { Spin } from "antd";
+import { useQuery } from "@tanstack/react-query";
+import { listTreeMenu } from "./api/system/menu";
+import { RoutesContext } from "./context/route-context";
+import { flatWithChildren } from "./utils/flat";
 
 const LoginPage = lazy(() => import("@/pages/login.tsx"));
 
@@ -19,7 +23,27 @@ const AuthRoute = (props: { children: React.ReactNode }) => {
   return props.children;
 };
 
+const FullscreenLoading = () => (
+  <div className=" w-screen h-screen flex justify-center items-center">
+    <Spin size="large" />
+  </div>
+);
+
 function AppRouter() {
+  const { isLoading, data } = useQuery({
+    queryKey: ["menu-tree"],
+    queryFn: listTreeMenu,
+  });
+  if (isLoading) return <FullscreenLoading />;
+
+  if (!data) return <Navigate to={"/login"} />;
+
+  const { lists } = data;
+
+  const menuRoutes = menuToRoutes(lists);
+
+  const entryRoutes = [...routes, ...menuRoutes];
+
   const router = createRouter([
     {
       path: "/",
@@ -28,7 +52,7 @@ function AppRouter() {
           <AppLayout />
         </AuthRoute>
       ),
-      children: [...routes],
+      children: entryRoutes,
     },
     {
       path: "/login",
@@ -37,7 +61,13 @@ function AppRouter() {
   ]);
   return (
     <Suspense fallback={<Spin />}>
-      <RouterProvider router={router} />
+      <RoutesContext.Provider
+        value={{
+          routes: entryRoutes,
+          flatRoutes: flatWithChildren(entryRoutes),
+        }}>
+        <RouterProvider router={router} />
+      </RoutesContext.Provider>
     </Suspense>
   );
 }
