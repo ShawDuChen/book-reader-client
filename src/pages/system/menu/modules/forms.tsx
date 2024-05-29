@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CrudProps } from "@/components";
+import { CrudProps, IconFont } from "@/components";
+import { RouteCOmponentList } from "@/router/_map";
 import { ICON_LIST } from "@/utils/constants";
 import { Cascader, Input, InputNumber, Select, Switch } from "antd";
 import { Menu } from "app";
-import Icon from "@ant-design/icons";
 
 const forms: (_?: Menu[]) => CrudProps<Menu>["forms"] = (menus) => [
   {
@@ -27,8 +27,9 @@ const forms: (_?: Menu[]) => CrudProps<Menu>["forms"] = (menus) => [
   },
   {
     name: "path",
-    label: "菜单路由",
-    formItem: <Input placeholder="请输入菜单路由" maxLength={32} />,
+    label: "菜单路径",
+    formItem: <Input placeholder="请输入菜单路径" maxLength={32} />,
+    rules: [{ required: true, message: "请输入菜单路径" }],
   },
   {
     name: "icon",
@@ -38,7 +39,7 @@ const forms: (_?: Menu[]) => CrudProps<Menu>["forms"] = (menus) => [
         {ICON_LIST?.map((item) => (
           <Select.Option key={item.value} value={item.value}>
             <div className="flex flex-row space-x-2">
-              <Icon component={item.label as unknown as any} />
+              <IconFont name={item.value as string} />
               <span>{item.value}</span>
             </div>
           </Select.Option>
@@ -49,18 +50,34 @@ const forms: (_?: Menu[]) => CrudProps<Menu>["forms"] = (menus) => [
   {
     name: "component",
     label: "菜单组件",
-    formItem: <Input placeholder="请输入菜单组件" maxLength={255} />,
-  },
-  {
-    name: "visible",
-    label: "是否可见",
-    formItem: <Switch />,
+    formItem: (
+      <Select
+        allowClear
+        showSearch
+        placeholder="请选择"
+        options={RouteCOmponentList}
+      />
+    ),
+    rules: [{ required: true, message: "请选择菜单组件" }],
   },
   {
     name: "order",
     label: "排序",
-    formItem: <InputNumber placeholder="请输入排序" max={99} min={0} />,
+    formItem: (
+      <InputNumber
+        placeholder="请输入排序"
+        max={99}
+        min={0}
+        defaultValue={0}
+        className="w-full"
+      />
+    ),
     rules: [{ required: true, message: "请输入排序" }],
+  },
+  {
+    name: "visible",
+    label: "是否可见",
+    formItem: <Switch defaultChecked />,
   },
   {
     name: "remark",

@@ -45,3 +45,11 @@ export const RouteComponentMap: Record<string, unknown> = {
   CrawlRulePage,
   MenuPage,
 };
+
+export const RouteCOmponentList = [
+  "Outlet",
+  ...Object.keys(RouteComponentMap),
+].map((value) => ({
+  value,
+  label: value,
+}));
