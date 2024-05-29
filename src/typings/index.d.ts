@@ -199,11 +199,19 @@ declare module "app" {
   }
 
   type CommentActionType = "LIKE" | "DISLIKE";
+  type ReplyActionType = CommentActionType;
 
   interface BookCommentAction extends CommonStruct {
     id?: number;
     action?: CommentActionType;
     comment_id?: number;
+    user_id?: number;
+  }
+
+  interface BookReplyAction extends CommonStruct {
+    id?: number;
+    action?: ReplyActionType;
+    reply_id?: number;
     user_id?: number;
   }
 }
