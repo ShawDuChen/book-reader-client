@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CrudProps } from "@/components";
-import { Cascader, Input, InputNumber, Switch } from "antd";
+import { ICON_LIST } from "@/utils/constants";
+import { Cascader, Input, InputNumber, Select, Switch } from "antd";
 import { Menu } from "app";
+import Icon from "@ant-design/icons";
 
 const forms: (_?: Menu[]) => CrudProps<Menu>["forms"] = (menus) => [
   {
@@ -30,7 +33,18 @@ const forms: (_?: Menu[]) => CrudProps<Menu>["forms"] = (menus) => [
   {
     name: "icon",
     label: "菜单图标",
-    formItem: <Input placeholder="请输入菜单图标" maxLength={64} />,
+    formItem: (
+      <Select placeholder="请选择菜单图标" allowClear showSearch>
+        {ICON_LIST?.map((item) => (
+          <Select.Option key={item.value} value={item.value}>
+            <div className="flex flex-row space-x-2">
+              <Icon component={item.label as unknown as any} />
+              <span>{item.value}</span>
+            </div>
+          </Select.Option>
+        ))}
+      </Select>
+    ),
   },
   {
     name: "component",

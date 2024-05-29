@@ -3,13 +3,15 @@ import { useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AppRouteObject } from "app";
 import { ItemType } from "antd/es/menu/interface";
+import Icon from "@ant-design/icons";
+import { ICON_MAP } from "@/utils/constants";
 
 function getMenuItem(route: AppRouteObject): ItemType {
   const { path, meta, children } = route;
   return {
     key: `${path}`,
     label: meta?.title || path,
-    icon: meta?.icon,
+    icon: meta?.icon ? <Icon component={ICON_MAP[meta.icon]} /> : null,
     children:
       children && children.length
         ? children
@@ -51,6 +53,7 @@ export default function AppMenu({ routes }: { routes: AppRouteObject[] }) {
       defaultOpenKeys={defaultOpenKeys}
       defaultSelectedKeys={defaultSelectedKeys}
       onClick={onMenuItemClick}
+      className="pb-12"
     />
   );
 }

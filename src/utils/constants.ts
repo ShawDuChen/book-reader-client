@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import * as AntdIcon from "@ant-design/icons";
+import { SelectProps } from "antd";
+
 export const METHODS = ["GET", "POST", "PUT", "DELETE"];
 export const STATUS_CODES = [200, 201, 204, 400, 401, 403, 404, 500];
 export const SEX_LIST = [
@@ -27,3 +31,18 @@ export const COMMENT_STATUS_LIST = Object.keys(COMMENT_STATUS).map((value) => ({
   value: parseInt(value),
   label: COMMENT_STATUS[value],
 }));
+
+export const ICON_LIST: SelectProps["options"] = Object.keys(AntdIcon).map(
+  (key) => ({
+    value: key,
+    label: (AntdIcon as any)[key] as any,
+  }),
+);
+
+export const ICON_MAP: Record<string, any> = Object.keys(AntdIcon).reduce(
+  (prev, curr) => {
+    prev[curr] = (AntdIcon as any)[curr];
+    return prev;
+  },
+  {} as Record<string, any>,
+);
