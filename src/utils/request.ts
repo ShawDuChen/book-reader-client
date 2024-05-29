@@ -1,6 +1,6 @@
 import Axios from "axios";
 import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-import { getToken } from "./token";
+import { getToken, removeToken } from "./token";
 import { notification } from "antd";
 
 const server = Axios.create({
@@ -27,6 +27,7 @@ const handleError = (error: AxiosError) => {
   const { statusText, status } = error.response!;
   const message = `【${status}】${statusText}`;
   if (status === 401) {
+    removeToken();
     showMsg(message, () => {
       location.href = "/login";
     });

@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { listTreeMenu } from "./api/system/menu";
 import { RoutesContext } from "./context/route-context";
 import { flatWithChildren } from "./utils/flat";
+import PageNotFound from "@/pages/not-found";
 
 const LoginPage = lazy(() => import("@/pages/login.tsx"));
 
@@ -33,14 +34,13 @@ function AppRouter() {
   const { isLoading, data } = useQuery({
     queryKey: ["menu-tree"],
     queryFn: listTreeMenu,
+    enabled: !!getToken(),
   });
   if (isLoading) return <FullscreenLoading />;
 
-  if (!data) return <Navigate to={"/login"} />;
+  const { lists } = data || {};
 
-  const { lists } = data;
-
-  const menuRoutes = menuToRoutes(lists);
+  const menuRoutes = menuToRoutes(lists || []);
 
   const entryRoutes = [...routes, ...menuRoutes];
 
@@ -53,6 +53,7 @@ function AppRouter() {
         </AuthRoute>
       ),
       children: entryRoutes,
+      errorElement: <PageNotFound />,
     },
     {
       path: "/login",
