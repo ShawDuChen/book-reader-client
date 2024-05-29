@@ -16,3 +16,14 @@ export const STATUS_MAP = STATUS_LIST.reduce(
   },
   {} as Record<string, string>,
 );
+
+export const COMMENT_STATUS: Record<number | string, string> = {
+  0: "待审核",
+  1: "审核通过",
+  2: "审核失败",
+};
+
+export const COMMENT_STATUS_LIST = Object.keys(COMMENT_STATUS).map((value) => ({
+  value: parseInt(value),
+  label: COMMENT_STATUS[value],
+}));

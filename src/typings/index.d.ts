@@ -174,4 +174,16 @@ declare module "app" {
     order: number;
     children?: Menu[];
   }
+
+  interface BookComment extends CommonStruct {
+    id: number;
+    content: string;
+    user_id: number;
+    user?: User;
+    book_id: number;
+    book?: Book;
+    like_count: number;
+    dislike_count: number;
+    status: 0 | 1 | 2;
+  }
 }
