@@ -32,7 +32,7 @@ const FullscreenLoading = () => (
 
 function AppRouter() {
   const { isLoading, data } = useQuery({
-    queryKey: ["menu-tree"],
+    queryKey: ["menu-routes-tree"],
     queryFn: listTreeMenu,
     enabled: !!getToken(),
   });

@@ -1,12 +1,14 @@
 import { login } from "@/api/system/user";
 import { setToken } from "@/utils/token";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button, Card, Form, FormProps, Input, message } from "antd";
 import { LoginFieldType } from "app";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
+  const queryClient = useQueryClient();
   const initialFormData: FormProps<LoginFieldType>["initialValues"] = {
     username: "",
     password: "",
@@ -21,6 +23,9 @@ export default function LoginPage() {
     login(data)
       .then((data) => {
         setToken(data.token);
+        queryClient.invalidateQueries({
+          queryKey: ["menu-routes-tree"],
+        });
         message.success("登录成功", 2, () => {
           navigate("/business/category");
         });
@@ -42,7 +47,10 @@ export default function LoginPage() {
           className="w-96">
           <Form.Item
             name={"username"}
-            rules={[{ required: true, message: "required username!" }]}>
+            rules={[
+              { required: true, message: "required username!" },
+              { type: "email", message: "Please input your email!" },
+            ]}>
             <Input placeholder="username" prefix={<UserOutlined />} />
           </Form.Item>
           <Form.Item
