@@ -47,3 +47,12 @@ export const allBookReplyAction = () => {
     method: "get",
   });
 };
+
+export const exportBookReplyAction = (data: Partial<BookReplyAction>) => {
+  return request<Blob>({
+    url: "/book_reply_action/export",
+    method: "post",
+    data,
+    responseType: "blob",
+  });
+};

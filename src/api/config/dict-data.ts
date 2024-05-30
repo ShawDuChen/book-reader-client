@@ -40,3 +40,12 @@ export const deleteDictData = (id: number) => {
     method: "delete",
   });
 };
+
+export const exportDictionaryData = (data: Partial<DictionaryData>) => {
+  return request<Blob>({
+    url: "/dict_data/export",
+    method: "post",
+    data,
+    responseType: "blob",
+  });
+};

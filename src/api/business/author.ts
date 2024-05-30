@@ -45,3 +45,12 @@ export const allAuthor = () => {
     method: "get",
   });
 };
+
+export const exportAuthor = (data: Partial<Author>) => {
+  return request<Blob>({
+    url: "/author/export",
+    method: "post",
+    data,
+    responseType: "blob",
+  });
+};

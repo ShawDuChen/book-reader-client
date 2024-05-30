@@ -59,3 +59,12 @@ export const fetchBookChapters = (id: number) => {
     method: "get",
   });
 };
+
+export const exportBook = (data: Partial<Book>) => {
+  return request<Blob>({
+    url: "/book/export",
+    method: "post",
+    data,
+    responseType: "blob",
+  });
+};

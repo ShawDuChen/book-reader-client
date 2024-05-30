@@ -38,3 +38,12 @@ export const deleteRole = (id: number) => {
     method: "delete",
   });
 };
+
+export const exportRole = (data: Partial<Role>) => {
+  return request<Blob>({
+    url: "/role/export",
+    method: "post",
+    data,
+    responseType: "blob",
+  });
+};

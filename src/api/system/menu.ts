@@ -52,3 +52,12 @@ export const listTreeMenu = () => {
     method: "get",
   });
 };
+
+export const exportMenu = (data: Partial<Menu>) => {
+  return request<Blob>({
+    url: "/menu/export",
+    method: "post",
+    data,
+    responseType: "blob",
+  });
+};

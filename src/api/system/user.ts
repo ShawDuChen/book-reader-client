@@ -74,3 +74,12 @@ export const allUser = () => {
     method: "get",
   });
 };
+
+export const exportUser = (data: Partial<User>) => {
+  return request<Blob>({
+    url: "/user/export",
+    method: "post",
+    data,
+    responseType: "blob",
+  });
+};

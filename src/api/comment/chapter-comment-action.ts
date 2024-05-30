@@ -47,3 +47,14 @@ export const allChapterCommentAction = () => {
     method: "get",
   });
 };
+
+export const exportChapterCommentAction = (
+  data: Partial<ChapterCommentAction>,
+) => {
+  return request<Blob>({
+    url: "/chapter_comment_action/export",
+    method: "post",
+    data,
+    responseType: "blob",
+  });
+};

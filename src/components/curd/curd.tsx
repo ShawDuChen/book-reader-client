@@ -5,6 +5,7 @@ import CrudForm, { CrudFormProps } from "./curd-form";
 import { CommonStruct, PageQuery, PageResult } from "app";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { donwload } from "@/utils/download";
 
 export type CrudProps<T> = {
   queryKey: string;
@@ -13,6 +14,7 @@ export type CrudProps<T> = {
   updateApi?: (_: T) => Promise<T>;
   deleteApi?: (_: number) => Promise<T>;
   infoApi?: (_: number) => Promise<T>;
+  exportApi?: (_: Partial<T>) => Promise<Blob>;
   columns: CrudTableProps<T>["columns"];
   searchs?: CrudSearchProps<T>["conditions"];
   forms?: CrudFormProps<T>["conditions"];
@@ -82,6 +84,14 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
     });
   };
 
+  const handleExport = () => {
+    donwload(
+      () =>
+        props.exportApi!({ ...pageQuery, page: undefined, limit: undefined }),
+      props.queryKey,
+    );
+  };
+
   const [form] = Form.useForm();
 
   const submitForm: FormProps<T>["onFinish"] = (values) => {
@@ -122,6 +132,11 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
         {props.selectable && (
           <Button type="primary" danger>
             删除
+          </Button>
+        )}
+        {props.exportApi && (
+          <Button type="primary" onClick={handleExport}>
+            导出
           </Button>
         )}
       </div>

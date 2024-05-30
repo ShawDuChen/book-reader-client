@@ -45,3 +45,12 @@ export const allBookReply = () => {
     method: "get",
   });
 };
+
+export const exportBookReply = (data: Partial<BookReply>) => {
+  return request<Blob>({
+    url: "/book_reply/export",
+    method: "post",
+    data,
+    responseType: "blob",
+  });
+};

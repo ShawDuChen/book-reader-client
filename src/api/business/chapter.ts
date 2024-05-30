@@ -52,3 +52,11 @@ export const allChapter = () => {
     method: "get",
   });
 };
+export const exportChapter = (data: Partial<Chapter>) => {
+  return request<Blob>({
+    url: "/chapter/export",
+    method: "post",
+    data,
+    responseType: "blob",
+  });
+};

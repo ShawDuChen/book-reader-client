@@ -45,3 +45,12 @@ export const allDictionary = () => {
     method: "get",
   });
 };
+
+export const exportDictionary = (data: Partial<Dictionary>) => {
+  return request<Blob>({
+    url: "/dictionary/export",
+    method: "post",
+    data,
+    responseType: "blob",
+  });
+};

@@ -45,3 +45,12 @@ export const allCategory = () => {
     method: "get",
   });
 };
+
+export const exportCategory = (data: Partial<Category>) => {
+  return request<Blob>({
+    url: "/category/export",
+    method: "post",
+    data,
+    responseType: "blob",
+  });
+};

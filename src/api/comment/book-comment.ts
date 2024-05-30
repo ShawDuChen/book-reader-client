@@ -47,3 +47,12 @@ export const allBookComment = () => {
     method: "get",
   });
 };
+
+export const exportBookComment = (data: Partial<BookComment>) => {
+  return request<Blob>({
+    url: "/book_comment/export",
+    method: "post",
+    data,
+    responseType: "blob",
+  });
+};

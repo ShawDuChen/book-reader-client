@@ -8,3 +8,12 @@ export function fetchLogs(params: PageQuery) {
     params: params,
   });
 }
+
+export const exportLogItem = (data: Partial<LogItem>) => {
+  return request<Blob>({
+    url: "/log/export",
+    method: "post",
+    data,
+    responseType: "blob",
+  });
+};

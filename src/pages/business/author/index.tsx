@@ -1,6 +1,7 @@
 import {
   createAuthor,
   deleteAuthor,
+  exportAuthor,
   fetchAuthorList,
   updateAuthor,
 } from "@/api/business/author";
@@ -17,6 +18,7 @@ export default function AuthorPage() {
       createApi={createAuthor}
       updateApi={updateAuthor}
       deleteApi={deleteAuthor}
+      exportApi={exportAuthor}
       queryKey="author"
       columns={columns}
       searchs={searchs}

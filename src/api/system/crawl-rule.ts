@@ -45,3 +45,12 @@ export const allCrawlRule = () => {
     method: "get",
   });
 };
+
+export const exportCrawlRule = (data: Partial<CrawlRule>) => {
+  return request<Blob>({
+    url: "/crawl_rule/export",
+    method: "post",
+    data,
+    responseType: "blob",
+  });
+};

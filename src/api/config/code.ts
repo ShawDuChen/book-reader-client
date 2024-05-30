@@ -45,3 +45,12 @@ export const generateCode = (id: number) => {
     method: "get",
   });
 };
+
+export const exportCode = (data: Partial<Code>) => {
+  return request<Blob>({
+    url: "/code/export",
+    method: "post",
+    data,
+    responseType: "blob",
+  });
+};
