@@ -11,8 +11,6 @@ import { RoutesContext } from "@/context/route-context";
 export default function AppLayout() {
   const { routes } = useContext(RoutesContext);
 
-  console.log(routes);
-
   const {
     token: { colorBgContainer },
   } = theme.useToken();

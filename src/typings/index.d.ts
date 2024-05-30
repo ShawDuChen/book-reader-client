@@ -49,6 +49,7 @@ declare module "app" {
     email: string;
     is_super: string;
     role_id: number;
+    role?: Role;
     sex: string;
     status: string | number;
     tel: string;

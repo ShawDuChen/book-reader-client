@@ -61,3 +61,11 @@ export const exportMenu = (data: Partial<Menu>) => {
     responseType: "blob",
   });
 };
+
+export const bindRoles = (menu_id: number, role_ids: number) => {
+  return request<Menu>({
+    url: `/menu/${menu_id}/bind_roles`,
+    method: "post",
+    data: { ids: role_ids },
+  });
+};

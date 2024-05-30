@@ -1,6 +1,7 @@
 import request from "@/utils/request";
 import {
   LoginFieldType,
+  Menu,
   PageQuery,
   PageResult,
   User,
@@ -81,5 +82,12 @@ export const exportUser = (data: Partial<User>) => {
     method: "post",
     data,
     responseType: "blob",
+  });
+};
+
+export const getUserMenus = () => {
+  return request<Menu[]>({
+    url: "/user/menus",
+    method: "get",
   });
 };

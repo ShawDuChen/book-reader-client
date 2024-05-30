@@ -26,8 +26,6 @@ export default function AppMenu({ routes }: { routes: AppRouteObject[] }) {
     .filter((route) => !route.meta?.hidden)
     .map((route) => getMenuItem(route));
 
-  console.log("menus::::", routes, items);
-
   const navigate = useNavigate();
 
   const { pathname } = useLocation();

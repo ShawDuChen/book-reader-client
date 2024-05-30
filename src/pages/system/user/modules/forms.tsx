@@ -14,12 +14,6 @@ const forms: (_?: Role[]) => CrudProps<User>["forms"] = (roles) => [
     ],
   },
   {
-    name: "password",
-    label: "密码",
-    formItem: <Input.Password placeholder="请输入" maxLength={255} />,
-    rules: [{ required: true, message: "请输入密码" }],
-  },
-  {
     name: "nickname",
     label: "用户昵称",
     formItem: <Input placeholder="请输入" maxLength={32} />,

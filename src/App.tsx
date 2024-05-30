@@ -9,10 +9,10 @@ import { getToken } from "@/utils/token.ts";
 import routes, { menuToRoutes } from "@/router/index.ts";
 import { Spin } from "antd";
 import { useQuery } from "@tanstack/react-query";
-import { listTreeMenu } from "./api/system/menu";
 import { RoutesContext } from "./context/route-context";
 import { flatWithChildren } from "./utils/flat";
 import PageNotFound from "@/pages/not-found";
+import { getUserMenus } from "./api/system/user";
 
 const LoginPage = lazy(() => import("@/pages/login.tsx"));
 
@@ -33,14 +33,12 @@ const FullscreenLoading = () => (
 function AppRouter() {
   const { isLoading, data } = useQuery({
     queryKey: ["menu-routes-tree"],
-    queryFn: listTreeMenu,
+    queryFn: getUserMenus,
     enabled: !!getToken(),
   });
   if (isLoading) return <FullscreenLoading />;
 
-  const { lists } = data || {};
-
-  const menuRoutes = menuToRoutes(lists || []);
+  const menuRoutes = menuToRoutes(data || []);
 
   const entryRoutes = [...routes, ...menuRoutes];
 

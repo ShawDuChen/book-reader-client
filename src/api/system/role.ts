@@ -47,3 +47,18 @@ export const exportRole = (data: Partial<Role>) => {
     responseType: "blob",
   });
 };
+
+export const allRole = () => {
+  return request<Role[]>({
+    url: "/role/all",
+    method: "get",
+  });
+};
+
+export const bindMenus = (role_id: number, menu_ids: number) => {
+  return request<Role>({
+    url: `/menu/${role_id}/bind_roles`,
+    method: "post",
+    data: { ids: menu_ids },
+  });
+};
