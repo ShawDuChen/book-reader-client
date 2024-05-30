@@ -1,5 +1,5 @@
 import request from "@/utils/request";
-import { PageQuery, PageResult, Role } from "app";
+import { Menu, PageQuery, PageResult, Role } from "app";
 
 export const fetchRoleList = (params: PageQuery<Partial<Role>>) => {
   return request<PageResult<Role>>({
@@ -55,10 +55,17 @@ export const allRole = () => {
   });
 };
 
-export const bindMenus = (role_id: number, menu_ids: number) => {
+export const bindMenus = (role_id: number, menu_ids: number[]) => {
   return request<Role>({
-    url: `/menu/${role_id}/bind_roles`,
+    url: `/role/${role_id}/bind_menus`,
     method: "post",
     data: { ids: menu_ids },
+  });
+};
+
+export const getRoleMenus = (role_id: number) => {
+  return request<Menu[]>({
+    url: `/role/${role_id}/menus`,
+    method: "get",
   });
 };
