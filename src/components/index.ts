@@ -5,3 +5,4 @@ export { default as Crud } from "./curd/curd";
 export type { CrudProps } from "./curd/curd";
 export { default as Clipboard } from "./clipboard/index";
 export { default as IconFont } from "./icon/icon";
+export { default as ImageUpload } from "./image-upload/index";

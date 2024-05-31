@@ -1,4 +1,5 @@
 import { updateUser, updateUserPassword } from "@/api/system/user";
+import { ImageUpload } from "@/components";
 import { useStore } from "@/store";
 import { SEX_LIST } from "@/utils/constants";
 import { removeToken } from "@/utils/token";
@@ -25,6 +26,7 @@ export default function WorkspaceProfile() {
   const [loading, setLoading] = useState(false);
 
   const { user, setUser } = useStore();
+  const [form] = Form.useForm<User>();
 
   const update: FormProps<User>["onFinish"] = (info) => {
     setLoading(true);
@@ -52,7 +54,11 @@ export default function WorkspaceProfile() {
     <Spin spinning={loading}>
       <div className="flex justify-between space-x-4">
         <Card className="flex-1" title="个人信息">
-          <Form initialValues={user} layout="vertical" onFinish={update}>
+          <Form
+            form={form}
+            initialValues={user}
+            layout="vertical"
+            onFinish={update}>
             <Form.Item name="id" hidden>
               <Input />
             </Form.Item>
@@ -85,6 +91,11 @@ export default function WorkspaceProfile() {
             </Form.Item>
             <Form.Item name="address" label="住址">
               <Input placeholder="请输入住址" />
+            </Form.Item>
+            <Form.Item name="avatar" label="头像">
+              <ImageUpload
+                onChange={(avatar) => form.setFieldValue("avatar", avatar)}
+              />
             </Form.Item>
             <div className="space-x-2">
               <Button type="primary" htmlType="submit">
