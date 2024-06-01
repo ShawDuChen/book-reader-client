@@ -16,6 +16,7 @@ const ChapterCommentPage = lazy(
 const ChapterReplyPage = lazy(() => import("@/pages/comment/chapter-reply"));
 
 // 配置管理
+const SourcePage = lazy(() => import("@/pages/config/source/index"));
 const DictionaryPage = lazy(() => import("@/pages/config/dictionary/index"));
 const DictDataPage = lazy(() => import("@/pages/config/dict-data/index"));
 const CodePage = lazy(() => import("@/pages/config/code/index"));
@@ -36,6 +37,7 @@ export const RouteComponentMap: Record<string, unknown> = {
   BookReplyPage,
   ChapterCommentPage,
   ChapterReplyPage,
+  SourcePage,
   DictionaryPage,
   DictDataPage,
   CodePage,

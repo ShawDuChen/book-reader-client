@@ -255,4 +255,13 @@ declare module "app" {
     reply_id?: number;
     user_id?: number;
   }
+
+  type SourceType = "IMAGE" | "VIDEO" | "AUDIO" | "OTHTER";
+
+  interface Source extends CommonStruct {
+    id: number;
+    url: string;
+    type: SourceType;
+    user_id: number;
+  }
 }
