@@ -1,4 +1,4 @@
-import type { CrudProps } from "@/components";
+import { ImageUpload, type CrudProps } from "@/components";
 import { SEX_LIST } from "@/utils/constants";
 import { Input, Select } from "antd";
 import { Author } from "app";
@@ -23,6 +23,11 @@ const forms: CrudProps<Author>["forms"] = [
     label: "手机号",
     formItem: <Input placeholder="请输入" allowClear maxLength={11} />,
     rules: [{ min: 11, max: 11, message: "请输入11位手机号" }],
+  },
+  {
+    name: "avatar",
+    label: "头像",
+    formItem: <ImageUpload />,
   },
   {
     name: "remark",

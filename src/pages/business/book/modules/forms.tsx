@@ -1,4 +1,4 @@
-import { CrudProps } from "@/components";
+import { CrudProps, ImageUpload } from "@/components";
 import { Input, Select } from "antd";
 import { Author, Book, Category, CrawlRule } from "app";
 
@@ -44,6 +44,11 @@ const forms: (
       />
     ),
     rules: [{ required: true, message: "请选择分类" }],
+  },
+  {
+    name: "cover",
+    label: "封面图",
+    formItem: <ImageUpload />,
   },
   {
     name: "crawl_rule_id",

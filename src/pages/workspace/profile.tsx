@@ -93,9 +93,7 @@ export default function WorkspaceProfile() {
               <Input placeholder="请输入住址" />
             </Form.Item>
             <Form.Item name="avatar" label="头像">
-              <ImageUpload
-                onChange={(avatar) => form.setFieldValue("avatar", avatar)}
-              />
+              <ImageUpload />
             </Form.Item>
             <div className="space-x-2">
               <Button type="primary" htmlType="submit">

@@ -56,6 +56,7 @@ declare module "app" {
     username: string;
     nickname: string;
     password: string;
+    avatar?: string;
   }
 
   interface Role extends CommonStruct {
@@ -69,6 +70,7 @@ declare module "app" {
     name: string;
     sex: string;
     tel: string;
+    avatar?: string;
   }
 
   interface Book extends CommonStruct {
@@ -81,6 +83,7 @@ declare module "app" {
     fetch_url?: string;
     crawl_rule_id: number;
     crawl_rule?: CrawlRule;
+    cover?: string;
   }
 
   interface Category extends CommonStruct {

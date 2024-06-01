@@ -1,4 +1,4 @@
-import { getToken } from "@/utils/token";
+import { httpHeader } from "@/utils/constants";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Upload, UploadProps, message } from "antd";
 import { useState } from "react";
@@ -16,11 +16,11 @@ export default function ImageUpload({ value, onChange }: ImageUploadProps) {
     if (!isJpgOrPng) {
       message.error("You can only upload JPG/PNG file!");
     }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error("Image must smaller than 2MB!");
+    const isLt10M = file.size / 1024 / 1024 < 10;
+    if (!isLt10M) {
+      message.error("Image must smaller than 10MB!");
     }
-    return isJpgOrPng && isLt2M;
+    return isJpgOrPng && isLt10M;
   };
 
   const handleChange: UploadProps["onChange"] = (info) => {
@@ -50,9 +50,7 @@ export default function ImageUpload({ value, onChange }: ImageUploadProps) {
       action="/api/upload/file"
       beforeUpload={beforeUpload}
       onChange={handleChange}
-      headers={{
-        Authorization: `Bearer ${getToken()}`,
-      }}>
+      headers={httpHeader}>
       {value ? (
         <img
           src={value}

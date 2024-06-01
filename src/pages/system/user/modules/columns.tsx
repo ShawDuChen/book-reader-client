@@ -11,6 +11,12 @@ const columns: CrudProps<User>["columns"] = [
   { dataIndex: "email", title: "电子邮箱" },
   { dataIndex: "address", title: "联系地址" },
   {
+    dataIndex: "avatar",
+    title: "头像",
+    render: (text: string) =>
+      text && <img src={text} alt="avatar" style={{ width: 100 }} />,
+  },
+  {
     dataIndex: "status",
     title: "状态",
     render: (val) => (val ? "可用" : "不可用"),

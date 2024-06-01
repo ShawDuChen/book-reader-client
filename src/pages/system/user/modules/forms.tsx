@@ -1,4 +1,4 @@
-import { CrudProps } from "@/components";
+import { CrudProps, ImageUpload } from "@/components";
 import { SEX_LIST } from "@/utils/constants";
 import { Input, Select } from "antd";
 import { Role, User } from "app";
@@ -53,6 +53,11 @@ const forms: (_?: Role[]) => CrudProps<User>["forms"] = (roles) => [
     name: "address",
     label: "联系地址",
     formItem: <Input placeholder="请输入" maxLength={255} />,
+  },
+  {
+    name: "avatar",
+    label: "头像",
+    formItem: <ImageUpload />,
   },
   {
     name: "remark",

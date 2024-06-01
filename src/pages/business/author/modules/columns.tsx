@@ -19,6 +19,12 @@ const columns: CrudProps<Author>["columns"] = [
     title: "联系方式",
   },
   {
+    dataIndex: "avatar",
+    title: "头像",
+    render: (text: string) =>
+      text && <img src={text} alt="avatar" style={{ width: 100 }} />,
+  },
+  {
     dataIndex: "remark",
     title: "备注",
   },

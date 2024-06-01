@@ -15,6 +15,12 @@ const columns: CrudProps<Book>["columns"] = [
     render: (_, record) => record.category?.name,
   },
   {
+    dataIndex: "cover",
+    title: "封面图",
+    render: (text: string) =>
+      text && <img src={text} alt="avatar" style={{ width: 100 }} />,
+  },
+  {
     dataIndex: "fetch_url",
     title: "爬取地址",
     render: (_, record) => (
