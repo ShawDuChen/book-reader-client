@@ -3,6 +3,7 @@ import * as AntdIcon from "@ant-design/icons";
 import { SelectProps } from "antd";
 import { HttpRequestHeader } from "antd/es/upload/interface";
 import { getToken } from "./token";
+import { SourceType } from "app";
 
 export const METHODS = ["GET", "POST", "PUT", "DELETE"];
 export const STATUS_CODES = [200, 201, 204, 400, 401, 403, 404, 500];
@@ -52,3 +53,10 @@ export const ICON_MAP: Record<string, any> = Object.keys(AntdIcon).reduce(
 export const httpHeader: HttpRequestHeader = {
   Authorization: `Bearer ${getToken()}`,
 };
+
+export const SOURCE_TYPE: { value: SourceType; label: SourceType }[] = [
+  { value: "IMAGE", label: "IMAGE" },
+  { value: "VIDEO", label: "VIDEO" },
+  { value: "AUDIO", label: "AUDIO" },
+  { value: "OTHER", label: "OTHER" },
+];

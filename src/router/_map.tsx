@@ -16,7 +16,6 @@ const ChapterCommentPage = lazy(
 const ChapterReplyPage = lazy(() => import("@/pages/comment/chapter-reply"));
 
 // 配置管理
-const SourcePage = lazy(() => import("@/pages/config/source/index"));
 const DictionaryPage = lazy(() => import("@/pages/config/dictionary/index"));
 const DictDataPage = lazy(() => import("@/pages/config/dict-data/index"));
 const CodePage = lazy(() => import("@/pages/config/code/index"));
@@ -27,6 +26,7 @@ const RolePage = lazy(() => import("@/pages/system/role/index"));
 const LogPage = lazy(() => import("@/pages/system/log"));
 const CrawlRulePage = lazy(() => import("@/pages/system/crawl-rule/index"));
 const MenuPage = lazy(() => import("@/pages/system/menu"));
+const SourcePage = lazy(() => import("@/pages/system/source/index"));
 
 export const RouteComponentMap: Record<string, unknown> = {
   CategoryPage,
@@ -37,7 +37,6 @@ export const RouteComponentMap: Record<string, unknown> = {
   BookReplyPage,
   ChapterCommentPage,
   ChapterReplyPage,
-  SourcePage,
   DictionaryPage,
   DictDataPage,
   CodePage,
@@ -46,6 +45,7 @@ export const RouteComponentMap: Record<string, unknown> = {
   LogPage,
   CrawlRulePage,
   MenuPage,
+  SourcePage,
 };
 
 export const RouteCOmponentList = [

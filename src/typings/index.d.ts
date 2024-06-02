@@ -256,12 +256,13 @@ declare module "app" {
     user_id?: number;
   }
 
-  type SourceType = "IMAGE" | "VIDEO" | "AUDIO" | "OTHTER";
+  type SourceType = "IMAGE" | "VIDEO" | "AUDIO" | "OTHER";
 
   interface Source extends CommonStruct {
     id: number;
     url: string;
     type: SourceType;
     user_id: number;
+    user?: User;
   }
 }
