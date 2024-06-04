@@ -19,6 +19,7 @@ const ChapterReplyPage = lazy(() => import("@/pages/comment/chapter-reply"));
 const DictionaryPage = lazy(() => import("@/pages/config/dictionary/index"));
 const DictDataPage = lazy(() => import("@/pages/config/dict-data/index"));
 const CodePage = lazy(() => import("@/pages/config/code/index"));
+const SiteFooterPage = lazy(() => import("@/pages/config/site-footer/index"));
 
 // 系统管理
 const UserPage = lazy(() => import("@/pages/system/user/index"));
@@ -40,6 +41,7 @@ export const RouteComponentMap: Record<string, unknown> = {
   DictionaryPage,
   DictDataPage,
   CodePage,
+  SiteFooterPage,
   UserPage,
   RolePage,
   LogPage,

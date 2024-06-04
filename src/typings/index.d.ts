@@ -265,4 +265,26 @@ declare module "app" {
     user_id: number;
     user?: User;
   }
+
+  type SiteFooterType = keyof {
+    ABOUT: "ABOUT";
+    CONTACT: "CONTACT";
+    NEWS: "NEWS";
+    SOCIAL: "SOCIAL";
+  };
+
+  type SiteFooterSubType = keyof {
+    PLATFORM: "PLATFORM";
+    COMPANY: "COMPANY";
+    PAPER: "PAPER";
+  };
+
+  interface SiteFooter extends CommonStruct {
+    id: number;
+    title: string;
+    link: string;
+    description: string;
+    type: SiteFooterType;
+    sub_type: SiteFooterSubType;
+  }
 }
