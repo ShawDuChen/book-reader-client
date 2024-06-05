@@ -57,6 +57,7 @@ declare module "app" {
     nickname: string;
     password: string;
     avatar?: string;
+    agreement?: boolean; // 前端专属：用于注册确认协议
   }
 
   interface Role extends CommonStruct {

@@ -5,7 +5,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Button, Card, Form, FormProps, Input, message } from "antd";
 import { LoginFieldType } from "app";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import loginBGSrc from "@/assets/loginbg.png";
 
 export default function LoginPage() {
   const queryClient = useQueryClient();
@@ -27,24 +28,30 @@ export default function LoginPage() {
           queryKey: ["menu-routes-tree"],
         });
         message.success("登录成功", 2, () => {
-          navigate("/business/category");
+          navigate("/workspace/profile");
         });
       })
       .catch(() => setLoading(false));
   };
 
   return (
-    <div className=" h-screen w-full flex items-center justify-center">
+    <section className="h-screen w-full flex">
+      <section
+        className="h-screen lg:w-2/3 w-1/2"
+        style={{
+          backgroundImage: `url(${loginBGSrc})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
       <Card
-        title={
-          <h1 className="text-2xl font-bold text-center">
-            {import.meta.env.VITE_APP_TITLE}
-          </h1>
-        }>
+        title={<h1 className="text-2xl font-bold text-secondary">登录</h1>}
+        className="flex flex-col items-center justify-center lg:w-1/3 w-1/2">
         <Form
           initialValues={initialFormData}
           onFinish={onFinished}
-          className="w-96">
+          className="lg:w-96 w-auto">
           <Form.Item
             name={"username"}
             rules={[
@@ -62,17 +69,34 @@ export default function LoginPage() {
               autoComplete="off"
             />
           </Form.Item>
+          <h2 className="text-secondary mb-4">
+            <span>登陆即表示同意</span>
+            <Link to="/sys/agreement" className="text-primary">
+              《用户协议》
+            </Link>
+          </h2>
           <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
               className="w-full"
               loading={loading}>
-              Login
+              登录
             </Button>
           </Form.Item>
+          <h2 className="text-secondary flex justify-between">
+            <span>
+              还没有账号？
+              <Link to="/sys/register" className="text-primary">
+                注册
+              </Link>
+            </span>
+            <Link to="/sys/forget-password" className="text-primary">
+              忘记密码？
+            </Link>
+          </h2>
         </Form>
       </Card>
-    </div>
+    </section>
   );
 }

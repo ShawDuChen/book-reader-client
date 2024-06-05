@@ -4,7 +4,7 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import { getToken } from "@/utils/token.ts";
 import routes, { menuToRoutes } from "@/router/index.ts";
 import { Spin } from "antd";
@@ -13,8 +13,7 @@ import { RoutesContext } from "./context/route-context";
 import { flatWithChildren } from "./utils/flat";
 import PageNotFound from "@/pages/not-found";
 import { getUserMenus } from "./api/system/user";
-
-const LoginPage = lazy(() => import("@/pages/login.tsx"));
+import sysRoutes from "./router/_sys";
 
 const AuthRoute = (props: { children: React.ReactNode }) => {
   const token = getToken();
@@ -53,10 +52,7 @@ function AppRouter() {
       children: entryRoutes,
       errorElement: <PageNotFound />,
     },
-    {
-      path: "/login",
-      element: <LoginPage />,
-    },
+    ...sysRoutes,
   ]);
   return (
     <Suspense fallback={<Spin />}>

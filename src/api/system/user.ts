@@ -16,6 +16,22 @@ export const login = (data: LoginFieldType) => {
   });
 };
 
+export const register = (data: User) => {
+  return request<User>({
+    url: "/auth/register",
+    method: "post",
+    data,
+  });
+};
+
+export const resetPassword = (data: User) => {
+  return request<User>({
+    url: "/auth/reset_password",
+    method: "post",
+    data,
+  });
+};
+
 export const fetchUserList = (params: PageQuery<Partial<User>>) => {
   return request<PageResult<User>>({
     url: "/user",
