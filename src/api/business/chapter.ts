@@ -60,3 +60,11 @@ export const exportChapter = (data: Partial<Chapter>) => {
     responseType: "blob",
   });
 };
+
+export const batchCrawlChapters = (ids: number[]) => {
+  return request({
+    url: "/chapter/bacth_crawl",
+    method: "post",
+    data: { ids },
+  });
+};

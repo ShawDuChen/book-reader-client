@@ -22,6 +22,7 @@ export type CrudProps<T> = {
   renderAction?: (_: T) => React.ReactNode;
   initSearch?: CrudSearchProps<T>["initSearch"];
   beforeSubmit?: (_: T) => T;
+  batchActions?: (_: number[]) => React.ReactNode;
 };
 
 function Crud<T extends CommonStruct>(props: CrudProps<T>) {
@@ -139,6 +140,7 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
             导出
           </Button>
         )}
+        {props.batchActions?.(selectedRowKeys as number[])}
       </div>
       <CrudTable
         dataSource={data?.lists}
@@ -165,6 +167,7 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
         pagination={{
           current: pageQuery.page,
           pageSize: pageQuery.limit,
+          total: data?.total || 0,
           onChange: (page, limit) => {
             updatePageQuery((prev) => ({ ...prev, page, limit }));
           },

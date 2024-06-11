@@ -5,7 +5,7 @@ import { notification } from "antd";
 
 const server = Axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_URL,
-  timeout: 60 * 1000,
+  timeout: 5 * 60 * 1000,
 });
 
 let isShowing = false;
