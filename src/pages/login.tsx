@@ -1,21 +1,21 @@
 import { login } from "@/api/system/user";
 import { setToken } from "@/utils/token";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { useQueryClient } from "@tanstack/react-query";
 import { Button, Card, Form, FormProps, Input, message } from "antd";
 import { LoginFieldType } from "app";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import loginBGSrc from "@/assets/loginbg.png";
+import { RoutesContext } from "@/context/route-context";
 
 export default function LoginPage() {
-  const queryClient = useQueryClient();
   const initialFormData: FormProps<LoginFieldType>["initialValues"] = {
     username: "",
     password: "",
   };
 
   const navigate = useNavigate();
+  const { refreshRoutes } = useContext(RoutesContext);
 
   const [loading, setLoading] = useState(false);
 
@@ -24,10 +24,9 @@ export default function LoginPage() {
     login(data)
       .then((data) => {
         setToken(data.token);
-        queryClient.invalidateQueries({
-          queryKey: ["menu-routes-tree"],
-        });
+
         message.success("登录成功", 2, () => {
+          refreshRoutes();
           navigate("/workspace/profile");
         });
       })
