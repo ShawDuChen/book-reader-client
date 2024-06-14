@@ -29,6 +29,10 @@ const CrawlRulePage = lazy(() => import("@/pages/system/crawl-rule/index"));
 const MenuPage = lazy(() => import("@/pages/system/menu"));
 const SourcePage = lazy(() => import("@/pages/system/source/index"));
 
+// 广告管理
+const AdsPage = lazy(() => import("@/pages/admgr/ads/index"));
+const AdvertiserPage = lazy(() => import("@/pages/admgr/advertiser/index"));
+
 export const RouteComponentMap: Record<string, unknown> = {
   CategoryPage,
   AuthorPage,
@@ -48,6 +52,8 @@ export const RouteComponentMap: Record<string, unknown> = {
   CrawlRulePage,
   MenuPage,
   SourcePage,
+  AdsPage,
+  AdvertiserPage,
 };
 
 export const RouteCOmponentList = [

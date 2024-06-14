@@ -22,6 +22,7 @@ export type CrudProps<T> = {
   renderAction?: (_: T) => React.ReactNode;
   initSearch?: CrudSearchProps<T>["initSearch"];
   beforeSubmit?: (_: T) => T;
+  beforeOpenForm?: (_: T) => T;
   batchActions?: (_: number[]) => React.ReactNode;
 };
 
@@ -115,6 +116,9 @@ function Crud<T extends CommonStruct>(props: CrudProps<T>) {
     };
     if (props.infoApi && initialValues?.id) {
       options.initialValues = await props.infoApi(initialValues.id);
+    }
+    if (props.beforeOpenForm && initialValues?.id) {
+      options.initialValues = props.beforeOpenForm(initialValues);
     }
     CrudForm.dialogForm(options);
   };

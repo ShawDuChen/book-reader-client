@@ -1,6 +1,7 @@
 declare module "app" {
   import type { RouteObject } from "react-router-dom";
   import { Rule } from "antd/es/form";
+  import { Dayjs } from "dayjs";
   interface LoginFieldType {
     username: string;
     password: string;
@@ -288,5 +289,25 @@ declare module "app" {
     description: string;
     type: SiteFooterType;
     sub_type: SiteFooterSubType;
+  }
+
+  interface Advertiser extends CommonStruct {
+    id: number;
+    name: string;
+    tel: string;
+    address: string;
+    ads_list?: Ads[];
+  }
+
+  interface Ads extends CommonStruct {
+    id: number;
+    title: string;
+    link: string;
+    image: string;
+    description: string;
+    advertiser_id: number;
+    advertiser?: Advertiser;
+    expired_at: string | Date | Dayjs;
+    status: number;
   }
 }
