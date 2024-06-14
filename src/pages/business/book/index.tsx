@@ -33,10 +33,15 @@ export default function BookPage() {
     queryFn: allCrawlRule,
   });
 
+  const [crawling, setCrawling] = useState(false);
+
   const startCrawl = (id: number) => {
-    startCrawlBook(id).then(() => {
-      message.success("fetch success");
-    });
+    setCrawling(true);
+    startCrawlBook(id)
+      .then(() => {
+        message.success("fetch success");
+      })
+      .finally(() => setCrawling(false));
   };
 
   const [chapterDrawer, setChapterDrawer] = useState({
@@ -60,7 +65,11 @@ export default function BookPage() {
         forms={forms(authors, categorys, crawlRules)}
         renderAction={(record) => (
           <>
-            <Button type="link" onClick={() => startCrawl(record.id)}>
+            <Button
+              type="link"
+              disabled={!record.crawl_rule?.status}
+              loading={crawling}
+              onClick={() => startCrawl(record.id)}>
               抓取
             </Button>
             <Button type="link" onClick={() => showChapters(record.id)}>

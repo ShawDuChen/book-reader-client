@@ -4,17 +4,16 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import { getToken } from "@/utils/token.ts";
 import routes, { menuToRoutes } from "@/router/index.ts";
 import { Spin } from "antd";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { RoutesContext } from "./context/route-context";
 import { flatWithChildren } from "./utils/flat";
 import PageNotFound from "@/pages/not-found";
 import { getUserMenus } from "./api/system/user";
 import sysRoutes from "./router/_sys";
-import { Menu } from "app";
 
 const AuthRoute = (props: { children: React.ReactNode }) => {
   const token = getToken();
@@ -30,76 +29,54 @@ const FullscreenLoading = () => (
   </div>
 );
 
-const useMenuToRoute = (menu: Menu[]) => {
+const queryMenuRouter = async (remote: boolean = false) => {
+  const menu = remote ? await getUserMenus() : [];
   const menuRoutes = menuToRoutes(menu || []);
-
   const entryRoutes = [...routes, ...menuRoutes];
-
-  const [router, setRouter] = useState(
-    createRouter([
-      {
-        path: "/",
-        element: (
-          <AuthRoute>
-            <AppLayout />
-          </AuthRoute>
-        ),
-        children: entryRoutes,
-        errorElement: <PageNotFound />,
-      },
-      ...sysRoutes,
-    ]),
-  );
-
-  const updateRouter = (data: Menu[]) => {
-    const menuRoutes = menuToRoutes(data || []);
-    const entryRoutes = [...routes, ...menuRoutes];
-    setRouter(
-      createRouter([
-        {
-          path: "/",
-          element: (
-            <AuthRoute>
-              <AppLayout />
-            </AuthRoute>
-          ),
-          children: entryRoutes,
-          errorElement: <PageNotFound />,
-        },
-        ...sysRoutes,
-      ]),
-    );
-  };
-
-  return {
-    entryRoutes,
-    router,
-    updateRouter,
-  };
+  const router = createRouter([
+    {
+      path: "/",
+      element: <Navigate to={"/workspace/profile"} />,
+    },
+    {
+      path: "/",
+      element: (
+        <AuthRoute>
+          <AppLayout />
+        </AuthRoute>
+      ),
+      children: entryRoutes,
+      errorElement: <PageNotFound />,
+    },
+    ...sysRoutes,
+  ]);
+  return { router, entryRoutes };
 };
 
 function AppRouter() {
+  const queryClient = useQueryClient();
   const { isLoading, data } = useQuery({
     queryKey: ["menu-routes-tree"],
-    queryFn: getUserMenus,
-    enabled: !!getToken(),
+    queryFn: () => {
+      return queryMenuRouter(!!getToken());
+    },
   });
-  const { entryRoutes, router, updateRouter } = useMenuToRoute(data || []);
-  if (isLoading) return <FullscreenLoading />;
 
-  return (
+  return isLoading || !data ? (
+    <FullscreenLoading />
+  ) : (
     <Suspense fallback={<Spin />}>
       <RoutesContext.Provider
         value={{
-          routes: entryRoutes,
-          flatRoutes: flatWithChildren(entryRoutes),
+          routes: data?.entryRoutes || [],
+          flatRoutes: flatWithChildren(data?.entryRoutes || []),
           refreshRoutes: () => {
-            getUserMenus().then((m) => {
-              updateRouter(m);
+            queryClient.invalidateQueries({
+              queryKey: ["menu-routes-tree"],
             });
           },
         }}>
-        <RouterProvider router={router} />
+        <RouterProvider router={data?.router} />
       </RoutesContext.Provider>
     </Suspense>
   );

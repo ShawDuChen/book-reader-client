@@ -165,6 +165,7 @@ declare module "app" {
     list_selector: string;
     content_selector: string;
     books?: Book[];
+    status?: number;
   }
 
   interface Menu extends CommonStruct {
