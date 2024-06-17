@@ -61,6 +61,7 @@ const forms: (
         options={crawlRules?.map((item) => ({
           value: item.id,
           label: item.name,
+          disabled: !item.status,
         }))}
       />
     ),

@@ -1,4 +1,4 @@
-import { CrudProps } from "@/components";
+import { CrudProps, ImageUpload } from "@/components";
 import { STATUS_LIST } from "@/utils/constants";
 import { DatePicker, Input, Select } from "antd";
 import { Ads, Advertiser } from "app";
@@ -19,7 +19,7 @@ const forms: (_?: Advertiser[]) => CrudProps<Ads>["forms"] = (advertisers) => [
   {
     name: "image",
     label: "广告图片",
-    formItem: <Input placeholder="请输入广告图片" maxLength={255} />,
+    formItem: <ImageUpload />,
   },
   {
     name: "description",
